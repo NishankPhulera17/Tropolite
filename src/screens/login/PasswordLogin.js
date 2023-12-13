@@ -26,6 +26,8 @@ import Checkbox from '../../components/atoms/checkbox/Checkbox';
 import PoppinsTextLeftMedium from '../../components/electrons/customFonts/PoppinsTextLeftMedium';
 import { useFetchLegalsMutation } from '../../apiServices/fetchLegal/FetchLegalApi';
 // import * as Keychain from 'react-native-keychain';  
+import { BaseUrlImages } from '../../utils/BaseUrlImages';
+
 
 const PasswordLogin = ({ navigation, route }) => {
   const [username, setUsername] = useState("influencer_2")
@@ -348,7 +350,7 @@ const PasswordLogin = ({ navigation, route }) => {
 
 
             }}
-            source={require('../../../assets/images/ozoneWhiteLogo.png')}></Image>
+            source={{uri:BaseUrlImages+icon}}></Image>
           {/* ozone change */}
          
 

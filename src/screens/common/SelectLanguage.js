@@ -6,7 +6,7 @@ import SelectLanguageBox from '../../components/molecules/SelectLanguageBox';
 import ButtonNavigate from '../../components/atoms/buttons/ButtonNavigate';
 import { useSelector, useDispatch } from 'react-redux'
 import { BaseUrl } from '../../utils/BaseUrl';
-
+import { BaseUrlImages } from '../../utils/BaseUrlImages';
 
 const SelectLanguage = ({navigation}) => {
     const [language, setLanguage] = useState()
@@ -29,7 +29,7 @@ const SelectLanguage = ({navigation}) => {
         
         <LinearGradient colors={[ternaryThemeColor,ternaryThemeColor,secondaryThemeColor]} style={{height:'100%',width:'100%'}}>
             <View style={{height:'20%',width:'100%',alignItems:'center',justifyContent:"center"}}>
-                <Image style={{height:200,width:240,resizeMode:'contain'}} source={require('../../../assets/images/ozoneWhiteLogo.png')}></Image>
+                <Image style={{height:200,width:240,resizeMode:'contain'}} source={{uri:BaseUrlImages+icon}}></Image>
             </View>
             <View style={{height:'30%',width:'100%',alignItems:'center',justifyContent:"flex-end"}}>
                 <PoppinsText style={{color:'white',fontSize:24}} content="Choose" />

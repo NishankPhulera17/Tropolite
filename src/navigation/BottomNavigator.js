@@ -3,7 +3,7 @@ import {View,Text,Platform, TouchableOpacity} from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Dashboard from '../screens/dashboard/Dashboard';
 import Home from 'react-native-vector-icons/AntDesign'
-import Qrcode from 'react-native-vector-icons/AntDesign'
+import Gift from 'react-native-vector-icons/AntDesign'
 import Book from 'react-native-vector-icons/AntDesign'
 import {useSelector, useDispatch} from 'react-redux';
 import Wave from '../../assets/svg/bottomDrawer.svg'
@@ -37,14 +37,10 @@ function BottomNavigator({navigation}) {
     <PoppinsTextMedium style={{marginTop:4,fontSize:12,fontWeight:platformFontWeight,color:'black'}} content="Home"></PoppinsTextMedium>
     </TouchableOpacity>
     {/* ozone change */}
-    { ((userData.user_type).toLowerCase()!=="dealer"  && (userData.user_type).toLowerCase()!=="sales") ? <TouchableOpacity onPress={()=>{navigation.navigate('QrCodeScanner')}} style={{alignItems:"center",justifyContent:"center",}}>
-    <Qrcode name="qrcode" size={24} color={ternaryThemeColor}></Qrcode>
-    <PoppinsTextMedium style={{marginTop:4,fontSize:12,fontWeight:platformFontWeight,color:'black'}} content="Scan QR Code"></PoppinsTextMedium>
-    </TouchableOpacity>
-    :
-    workflow?.includes("Genuinity") && <TouchableOpacity onPress={()=>{navigation.navigate('ScanAndRedirectToGenuinity')}} style={{alignItems:"center",justifyContent:"center",}}>
-    <Qrcode name="qrcode" size={24} color={ternaryThemeColor}></Qrcode>
-    <PoppinsTextMedium style={{marginTop:4,fontSize:12,fontWeight:platformFontWeight,color:'black'}} content="Check Genuinity"></PoppinsTextMedium>
+    { 
+   <TouchableOpacity onPress={()=>{navigation.navigate('RedeemRewardHistory')}} style={{alignItems:"center",justifyContent:"center",}}>
+    <Gift name="gift" size={24} color={ternaryThemeColor}></Gift>
+    <PoppinsTextMedium style={{marginTop:4,fontSize:12,fontWeight:platformFontWeight,color:'black'}} content="Rewards"></PoppinsTextMedium>
     </TouchableOpacity>
     }
     <TouchableOpacity onPress={()=>{navigation.navigate('Passbook')}} style={{alignItems:"center",justifyContent:"center",position:'absolute',right:30}}>

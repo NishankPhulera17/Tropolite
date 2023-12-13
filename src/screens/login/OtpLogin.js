@@ -27,6 +27,7 @@ import PoppinsTextLeftMedium from '../../components/electrons/customFonts/Poppin
 import Checkbox from '../../components/atoms/checkbox/Checkbox';
 import { useFetchLegalsMutation } from '../../apiServices/fetchLegal/FetchLegalApi';
 import * as Keychain from 'react-native-keychain';
+import { BaseUrlImages } from '../../utils/BaseUrlImages';
 
 
 const OtpLogin = ({ navigation, route }) => {
@@ -286,7 +287,7 @@ const OtpLogin = ({ navigation, route }) => {
 
 
             }}
-            source={require('../../../assets/images/ozoneWhiteLogo.png')}></Image>
+            source={{uri:BaseUrlImages+icon}}></Image>
         </View>
         <View
           style={{

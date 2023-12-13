@@ -187,7 +187,7 @@ const Splash = ({ navigation }) => {
       console.log("getAppThemeData", JSON.stringify(getAppThemeData.body))
       dispatch(setPrimaryThemeColor(getAppThemeData.body.theme.color_shades["600"]))
       dispatch(setSecondaryThemeColor(getAppThemeData.body.theme.color_shades["400"]))
-      dispatch(setTernaryThemeColor(getAppThemeData.body.theme.color_shades["700"]))
+      dispatch(setTernaryThemeColor(getAppThemeData.body.theme.color_shades["800"]))
       dispatch(setIcon(getAppThemeData.body.logo[0]))
       dispatch(setIconDrawer(getAppThemeData.body.logo[0]))
       dispatch(setOptLogin(getAppThemeData.body.login_options.Otp.users))
@@ -229,7 +229,7 @@ const Splash = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ImageBackground resizeMode='stretch' style={{ flex: 1, height: '100%', width: '100%', }} source={require('../../../assets/images/splash2.png')}>
+      <ImageBackground resizeMode='stretch' style={{ flex: 1, height: '100%', width: '100%', }} source={require('../../../assets/images/tropiliteSplash.png')}>
 
         {/* <Image  style={{ width: 200, height: 200,  }}  source={require('../../../assets/gif/ozonegif.gif')} /> */}
         {/* <FastImage

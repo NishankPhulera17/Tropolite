@@ -360,7 +360,7 @@ const VerifyOtp = ({ navigation, route }) => {
 
 
             }}
-            source={require('../../../assets/images/ozoneWhiteLogo.png')}></Image>
+            source={{uri:BaseUrlImages+icon}}></Image>
         </View>
         <View
           style={{

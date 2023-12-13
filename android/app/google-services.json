@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "597234478127",
-    "project_id": "ozo-stars",
-    "storage_bucket": "ozo-stars.appspot.com"
+    "project_number": "917592717794",
+    "project_id": "tropilite-9f6d1",
+    "storage_bucket": "tropilite-9f6d1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:597234478127:android:bcc022dca685f137b8eada",
+        "mobilesdk_app_id": "1:917592717794:android:2329b9c1b982a2b5e461bb",
         "android_client_info": {
-          "package_name": "com.ozoneoverseas"
+          "package_name": "com.tropilite"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAZOAl_osG_JCanX4o0pg-XGZgGXbNSKds"
+          "current_key": "AIzaSyB4XqBdlueT5BqF7HGGTWMSt77R2p6EDcM"
         }
       ],
       "services": {
