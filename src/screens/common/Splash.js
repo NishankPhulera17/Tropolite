@@ -174,7 +174,7 @@ const Splash = ({ navigation }) => {
   
   // calling API to fetch themes for the app
   useEffect(() => {
-    getAppTheme("ozone")
+    getAppTheme("tropilite")
     //         VersionCheck.getLatestVersion()
     // .then(latestVersion => {
     //     console.log(latestVersion);   
@@ -215,7 +215,7 @@ const Splash = ({ navigation }) => {
       getData()
     }
     else {
-      getAppTheme("ozone")
+      getAppTheme("tropilite")
 
       console.log("getAppThemeIsError", getAppThemeIsError)
       console.log("getAppThemeError", getAppThemeError)
