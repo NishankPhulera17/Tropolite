@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "OzoneOverseas";
+    return "Tropolite";
   }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
