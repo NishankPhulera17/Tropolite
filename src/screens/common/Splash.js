@@ -23,7 +23,7 @@ const Splash = ({ navigation }) => {
   const [gotLoginData, setGotLoginData] = useState()
 
 
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/ozoStars.gif')).uri;
+  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/Tropolite.gif')).uri;
   // generating functions and constants for API use cases---------------------
   const [
     getAppTheme,
@@ -127,8 +127,10 @@ const Splash = ({ navigation }) => {
           dispatch(setAppUserType(parsedJsonValue.user_type))
           dispatch(setUserData(parsedJsonValue))
           dispatch(setId(parsedJsonValue.id))
-          
+          setTimeout(() => {
           navigation.navigate('Dashboard');
+            
+          }, 2000);
 
          
         }
@@ -143,11 +145,17 @@ const Splash = ({ navigation }) => {
         {
           if(value==="Yes")
           {
+            setTimeout(() => {
             navigation.navigate('SelectUser');
+              
+            }, 2000);
 
           }
           else{
+            setTimeout(() => {
             navigation.navigate('Introduction')
+              
+            }, 2000);
           }
           // console.log("isAlreadyIntroduced",isAlreadyIntroduced,gotLoginData)
     
@@ -228,20 +236,21 @@ const Splash = ({ navigation }) => {
 
 
   return (
-    <View style={{ flex: 1 }}>
-      <ImageBackground resizeMode='stretch' style={{ flex: 1, height: '100%', width: '100%', }} source={require('../../../assets/images/tropiliteSplash.png')}>
+    <View style={{ flex: 1,alignItems:'center',justifyContent:'center',backgroundColor:'white' }}>
+      {/* <ImageBackground resizeMode='stretch' style={{ flex: 1, height: '100%', width: '100%', }} source={require('../../../assets/images/tropiliteSplash.png')}> */}
 
         {/* <Image  style={{ width: 200, height: 200,  }}  source={require('../../../assets/gif/ozonegif.gif')} /> */}
-        {/* <FastImage
-          style={{ width: 250, height: 250, marginTop:'auto',alignSelf:'center' }}
+        <FastImage
+        
+          style={{ width: 300, height: 300,alignSelf:'center' }}
           source={{
             uri: gifUri, // Update the path to your GIF
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.contain}
-        /> */}
+        />
 
-      </ImageBackground>
+      {/* </ImageBackground> */}
 
     </View>
 

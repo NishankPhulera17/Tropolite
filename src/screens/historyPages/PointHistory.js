@@ -14,6 +14,8 @@ import { BaseUrlImages } from '../../utils/BaseUrlImages';
 import { useGetPointSharingDataMutation } from '../../apiServices/pointSharing/pointSharingApi';
 import { dispatchCommand } from 'react-native-reanimated';
 import InputDate from '../../components/atoms/input/InputDate';
+import { gifUri } from '../../utils/GifUrl';
+
 
 const PointHistory = ({ navigation }) => {
     const [displayList, setDisplayList] = useState([])
@@ -52,7 +54,6 @@ const PointHistory = ({ navigation }) => {
 
 
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
     const noData = Image.resolveAssetSource(require('../../../assets/gif/noData.gif')).uri;
     let startDate,endDate
 
@@ -345,7 +346,7 @@ const PointHistory = ({ navigation }) => {
            
             <DisplayEarnings></DisplayEarnings>
             <Header></Header>
-            <PointCategoryTab></PointCategoryTab>
+            {/* <PointCategoryTab></PointCategoryTab> */}
 
             {
                 displayList.length==0 && !isLoading &&
@@ -374,15 +375,15 @@ const PointHistory = ({ navigation }) => {
                     resizeMode={FastImage.resizeMode.contain}
                 />
             }
-            {displayList && <FlatList
-            style={{width:'100%',height:'60%'}}
+            {displayList.length!==0 && <FlatList
+            style={{width:'100%',height:'70%'}}
                 data={displayList}
                 contentContainerStyle={{backgroundColor:"white",paddingBottom:200}}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => {
                     console.log(index + 1, item)
                     return (
-                        <ListItem image={item.images ===undefined ? undefined : item.images[0]} description={item.product_name} productCode={item.product_code} amount={item.points} status={item.status} time={moment(item.created_at).format("HH:mm a")}/>
+                        <ListItem image={item?.images ===(undefined || null) ? undefined : item?.images[0]} description={item?.product_name===(undefined || null) ? undefined : item?.product_name} productCode={item?.product_code===(undefined || null) ? undefined : item?.product_code} amount={item?.points===(undefined || null) ? undefined : item?.points} status={item?.status===(undefined || null) ? undefined : item?.status} time={moment(item?.created_at===(undefined || null) ? undefined : item?.created_at).format("HH:mm a")}/>
                     )
                 }}
                 keyExtractor={(item,index) => index}

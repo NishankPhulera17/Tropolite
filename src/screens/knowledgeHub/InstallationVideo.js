@@ -8,11 +8,11 @@ import { useProductInstallationVideoMutation } from '../../apiServices/installat
 import PoppinsTextLeftMedium from '../../components/electrons/customFonts/PoppinsTextLeftMedium';
 import DataNotFound from '../data not found/DataNotFound';
 import FastImage from 'react-native-fast-image';
+import { gifUri } from '../../utils/GifUrl';
 
 // create a component
 const InstallationVideo = ({ navigation }) => {
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
     const ternaryThemeColor = useSelector(

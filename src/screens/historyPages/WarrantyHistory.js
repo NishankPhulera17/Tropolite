@@ -11,7 +11,7 @@ import FastImage from 'react-native-fast-image';
 import FilterModal from '../../components/modals/FilterModal';
 import DataNotFound from '../data not found/DataNotFound';
 import InputDate from '../../components/atoms/input/InputDate';
-
+import { gifUri } from '../../utils/GifUrl';
 
 const WarrantyHistory = ({ navigation }) => {
     const ternaryThemeColor = useSelector(
@@ -28,7 +28,6 @@ const WarrantyHistory = ({ navigation }) => {
         }
     ] = useGetWarrantyByAppUserIdMutation()
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
     const noData = Image.resolveAssetSource(require('../../../assets/gif/noData.gif')).uri;
     let startDate,endDate
 

@@ -22,7 +22,7 @@ import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import ModalWithBorder from '../../components/modals/ModalWithBorder';
 import Close from 'react-native-vector-icons/Ionicons';
-
+import { gifUri } from '../../utils/GifUrl';
 
 
 const Profile = ({ navigation }) => {
@@ -203,7 +203,6 @@ const Profile = ({ navigation }) => {
   const name = profileName ? fetchProfileData?.body.name : '';
   const membership = getActiveMembershipData && getActiveMembershipData.body?.tier.name
   const accountVerified = !Object.values(kycData).includes(false);
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
   const ProfileBox = (props) => {

@@ -6,6 +6,7 @@ import { useVerifyAadharMutation } from '../../../apiServices/verification/Aadha
 import ZoomImageAnimation from '../../animations/ZoomImageAnimation';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
+import { gifUri } from '../../../utils/GifUrl';
 
 const TextInputAadhar = (props) => {
     const [value,setValue] = useState()
@@ -23,7 +24,6 @@ const TextInputAadhar = (props) => {
   )
     ? useSelector(state => state.apptheme.ternaryThemeColor)
     : 'grey';
-    const gifUri = Image.resolveAssetSource(require('../../../../assets/gif/loader.gif')).uri;
 
     const [sendAadharOtpFunc,{
         data:sendAadharOtpData,

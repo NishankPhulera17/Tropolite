@@ -22,15 +22,14 @@ import FastImage from "react-native-fast-image";
 import InputDate from "../../components/atoms/input/InputDate";
 import PoppinsTextLeftMedium from "../../components/electrons/customFonts/PoppinsTextLeftMedium";
 import FilterModal from "../../components/modals/FilterModal";
+import { gifUri } from "../../utils/GifUrl";
 
 const ScannedHistory = ({ navigation }) => {
   const [distinctDateArr, setDistinctDateArr] = useState();
   const [scannedListData, setScannedListData] = useState([]);
   const [limit, setLimit] = useState(20)
 
-  const gifUri = Image.resolveAssetSource(
-    require("../../../assets/gif/loader.gif")
-  ).uri;
+  
 
   const [
     fetchAllQrScanedList,

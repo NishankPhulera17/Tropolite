@@ -17,6 +17,7 @@ import { useCashPerPointMutation } from '../../apiServices/workflow/rewards/GetP
 import { useGetkycStatusMutation } from '../../apiServices/kyc/KycStatusApi';
 import PoppinsTextLeftMedium from '../../components/electrons/customFonts/PoppinsTextLeftMedium';
 import InputDate from '../../components/atoms/input/InputDate';
+import { gifUri } from '../../utils/GifUrl';
 
 const RedeemedHistory = ({ navigation }) => {
   const [message, setMessage] = useState();
@@ -50,7 +51,6 @@ const RedeemedHistory = ({ navigation }) => {
 
   }
   console.log("appUserData",appUserData)
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
   const noData = Image.resolveAssetSource(require('../../../assets/gif/noData.gif')).uri;
   let startDate,endDate
   const [

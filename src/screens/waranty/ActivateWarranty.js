@@ -28,7 +28,7 @@ import Close from 'react-native-vector-icons/Ionicons';
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import ErrorModal from '../../components/modals/ErrorModal';
 import FastImage from 'react-native-fast-image';
-
+import { gifUri } from '../../utils/GifUrl';
 
 const ActivateWarranty = ({ navigation, route }) => {
   const [responseArray, setResponseArray] = useState([]);
@@ -55,7 +55,6 @@ const ActivateWarranty = ({ navigation, route }) => {
     },
   ] = useUploadImagesMutation();
 
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
   const [

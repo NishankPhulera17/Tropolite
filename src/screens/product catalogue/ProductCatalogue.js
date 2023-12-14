@@ -21,6 +21,8 @@ import { useProductCatalogueMutation } from '../../apiServices/productCatalogue/
 import { BaseUrlImages } from '../../utils/BaseUrlImages';
 import Pdf from 'react-native-pdf';
 import FastImage from 'react-native-fast-image';
+import { gifUri } from '../../utils/GifUrl';
+
 
 const ProductCatalogue = ({navigation}) => {
     const [catalogueData, setCatalogueData] = useState()
@@ -30,7 +32,6 @@ const ProductCatalogue = ({navigation}) => {
     ? useSelector(state => state.apptheme.ternaryThemeColor)
     : 'grey';
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
   const [

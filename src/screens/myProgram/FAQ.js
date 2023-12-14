@@ -8,7 +8,7 @@ import { useFetchAllfaqsMutation } from '../../apiServices/faq/faqApi';
 import * as Keychain from 'react-native-keychain';
 import DataNotFound from '../data not found/DataNotFound';
 import FastImage from 'react-native-fast-image';
-
+import { gifUri } from '../../utils/GifUrl';
 
 // create a component
 const FAQ = ({ navigation }) => {
@@ -16,7 +16,6 @@ const FAQ = ({ navigation }) => {
     const[faqData, setFAQData] = useState(null);
     const[error,setError] = useState(false);
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
     const [fetchFAQ, {
         data:fetchFAQData, 

@@ -8,6 +8,7 @@ import * as Keychain from 'react-native-keychain';
 import Logo from 'react-native-vector-icons/AntDesign'
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
+import { gifUri } from '../../utils/GifUrl';
 
 const Tutorial = ({navigation}) => {
   const [videoData, setVideoData] = useState()
@@ -18,7 +19,6 @@ const Tutorial = ({navigation}) => {
     : 'grey';
     const height = Dimensions.get('window').height
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
     const [appVideoFunc, {

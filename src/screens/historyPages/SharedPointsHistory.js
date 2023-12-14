@@ -14,12 +14,11 @@ import FastImage from 'react-native-fast-image';
 import PoppinsTextLeftMedium from '../../components/electrons/customFonts/PoppinsTextLeftMedium';
 import FilterModal from '../../components/modals/FilterModal';
 import InputDate from '../../components/atoms/input/InputDate';
-
+import { gifUri } from '../../utils/GifUrl';
 
 const SharedPointsHistory = ({ navigation }) => {
   const [distinctDateArr, setDistinctDateArr] = useState()
   const [scannedListData, setScannedListData] = useState([])
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
   const noData = Image.resolveAssetSource(require('../../../assets/gif/noData.gif')).uri;
 
 

@@ -7,7 +7,7 @@ import * as Keychain from 'react-native-keychain';
 import ProductCategoryDropDown from '../../components/atoms/dropdown/ProductCategoryDropDown';
 import { useGetProductLevelMutation } from '../../apiServices/productCategory/ProductCategoryApi';
 import FastImage from "react-native-fast-image";
-
+import { gifUri } from '../../utils/GifUrl';
 
 const ProductCategory = ({navigation}) => {
   const [productLevel, setProductLevel] = useState([])
@@ -30,9 +30,7 @@ const ProductCategory = ({navigation}) => {
       isError:getProductLevelIsError
   }] = useGetProductLevelMutation()
 
-    const gifUri = Image.resolveAssetSource(
-      require("../../../assets/gif/loader.gif")
-    ).uri;
+   
 
     useEffect(()=>{
         getToken()

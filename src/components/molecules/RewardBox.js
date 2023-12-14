@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 import { useFetchUserPointsMutation } from '../../apiServices/workflow/rewards/GetPointsApi';
 import * as Keychain from 'react-native-keychain';
 import FastImage from 'react-native-fast-image';
+import { gifUri } from '../../utils/GifUrl';
 
 const RewardBox = () => {
     const workflow = useSelector(state => state.appWorkflow.program)
     const id = useSelector(state => state.appusersdata.id);
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
     const [userPointFunc, {

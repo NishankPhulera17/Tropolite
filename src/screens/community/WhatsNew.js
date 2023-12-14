@@ -9,14 +9,13 @@ import PoppinsTextLeftMedium from '../../components/electrons/customFonts/Poppin
 import { BaseUrlImages } from '../../utils/BaseUrlImages';
 import FastImage from 'react-native-fast-image';
 import DataNotFound from '../data not found/DataNotFound';
-
+import { gifUri } from '../../utils/GifUrl';
 // create a component
 const WhatsNew = ({ navigation }) => {
 
     const [categories, setCategories] = useState();
     const [media, setMedia] = useState();
 
-    const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
     const ternaryThemeColor = useSelector(
         state => state.apptheme.ternaryThemeColor,

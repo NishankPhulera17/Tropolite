@@ -123,7 +123,7 @@ console.log("Point conversion and cash conversion data",pointsConversion,cashCon
       setMessage(redeemGiftsData.message)
     }
     else if (redeemGiftsError) {
-      console.log("redeemGiftsError", redeemGiftsError)
+      console.log("redeemGiftsError", JSON.stringify(redeemGiftsError))
       setMessage(redeemGiftsError.data.message)
       setError(true)
     }

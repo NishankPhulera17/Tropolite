@@ -9,6 +9,8 @@ import Logo from 'react-native-vector-icons/AntDesign'
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import DataNotFound from '../data not found/DataNotFound';
+import { gifUri } from '../../utils/GifUrl';
+
 
 const VideoGallery = ({ navigation }) => {
   const [videoData, setVideoData] = useState([])
@@ -19,7 +21,6 @@ const VideoGallery = ({ navigation }) => {
     : 'grey';
   const height = Dimensions.get('window').height
 
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
   const [appVideoFunc, {

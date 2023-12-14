@@ -11,6 +11,8 @@ import DropDownRegistration from '../../components/atoms/dropdown/DropDownRegist
 import PoppinsTextLeftMedium from '../../components/electrons/customFonts/PoppinsTextLeftMedium';
 import FastImage from 'react-native-fast-image';
 import { setCanMapUsers } from '../../../redux/slices/userMappingSlice';
+import { gifUri } from '../../utils/GifUrl';
+
 const ListUsers = ({ navigation }) => {
 
   const [selectedOption, setSelectedOption] = useState([]);
@@ -33,7 +35,6 @@ const dispatch = useDispatch()
     : '#FFB533';
 
   const allUsers = useSelector(state => state.appusers.value)
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
   var allUsersData = []
   var allUsersList = []
