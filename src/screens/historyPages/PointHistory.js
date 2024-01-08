@@ -57,8 +57,8 @@ const PointHistory = ({ navigation }) => {
 
 
     useEffect(() => {
-        fetchPoints()
-        getRegistrationPoints("points_sharing")
+        // fetchPoints()
+        getRegistrationPoints("Orders")
     }, [])
     const userId = useSelector(state => state.appusersdata.id);
 
@@ -329,7 +329,7 @@ const PointHistory = ({ navigation }) => {
                     {type==="registration_bonus" &&<PoppinsTextMedium style={{ fontWeight: '400', fontSize: 14, color: 'black',fontWeight: '700' }} content={`Registration Bonus`}></PoppinsTextMedium>}
 
                     {type!=="registration_bonus" &&<PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Product Code : ${productCode}`}></PoppinsTextMedium>}
-                    {type!=="registration_bonus" && <PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Visible Code : ${visibleCode}`}></PoppinsTextMedium>}
+                    {/* {type!=="registration_bonus" && <PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Visible Code : ${visibleCode}`}></PoppinsTextMedium>} */}
                     <PoppinsTextMedium style={{ fontWeight: '200', fontSize: 12, color: 'black' }} content={date}></PoppinsTextMedium>
                     
                     <PoppinsTextMedium style={{ fontWeight: '200', fontSize: 12, color: 'black' }} content={time}></PoppinsTextMedium>
@@ -342,7 +342,7 @@ const PointHistory = ({ navigation }) => {
         )
     }
     return (
-        <View style={{ alignItems: 'center', justifyContent: "center", backgroundColor: 'white',width:'100%' }}>
+        <View style={{ alignItems: 'center', justifyContent: "center", backgroundColor: 'white',width:'100%',height:'100%' }}>
             <View style={{ alignItems: "center", justifyContent: "flex-start", flexDirection: "row", width: '100%', marginTop: 10, height: 40, marginLeft: 20,backgroundColor:'white' }}>
                 <TouchableOpacity onPress={() => {
                     navigation.goBack()
@@ -369,7 +369,7 @@ const PointHistory = ({ navigation }) => {
            
             <DisplayEarnings></DisplayEarnings>
             <Header></Header>
-            <PointCategoryTab></PointCategoryTab>
+            {/* <PointCategoryTab></PointCategoryTab> */}
 
             {
                 displayList.length==0 && !isLoading &&
@@ -401,7 +401,7 @@ const PointHistory = ({ navigation }) => {
            </View>
             }
             {displayList && !isLoading && <FlatList
-            style={{width:'100%',height:'60%'}}
+            style={{width:'100%',height:'70%'}}
                 data={displayList}
                 contentContainerStyle={{backgroundColor:"white",paddingBottom:200}}
                 showsVerticalScrollIndicator={false}

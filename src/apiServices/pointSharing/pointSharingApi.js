@@ -8,7 +8,7 @@ export const pointSharingApi = baseApi.injectEndpoints({
         console.log("data point sharing",params);
         return {
           method: 'GET',
-          url:`/api/app/extraPoint/${params.id}?limit=100&offset=0&type=${params.cause}`,
+          url:`/api/app/extraPoint/${params.id}?limit=1000&offset=0&type=${params.cause}`,
          
           headers: {
             'Content-Type': 'application/json',
