@@ -117,7 +117,7 @@ const RectangularUnderlinedDropDown = (props) => {
                 data={data}
                 renderItem={({ item, index }) => (
                   <SelectableDropDownComponent
-                    key={index}
+                   
                     title={item}
                   ></SelectableDropDownComponent>
                 )}

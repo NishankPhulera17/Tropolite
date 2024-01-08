@@ -472,7 +472,7 @@ const CustomDrawer = () => {
             marginLeft: 10,
             position: 'absolute',
             backgroundColor: 'white',
-            left: 15,
+            left: 4,
             resizeMode: 'contain'
           }}>
             <Image
@@ -487,7 +487,7 @@ const CustomDrawer = () => {
 
 
         }
-        <View style={{ justifyContent: 'center', marginLeft: 50 }}>
+        <View style={{ justifyContent: 'center', marginLeft: 60 }}>
           {userData && <Text
             style={{
               color: 'white',

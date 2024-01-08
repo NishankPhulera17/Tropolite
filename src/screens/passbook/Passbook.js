@@ -531,11 +531,7 @@ const Passbook = ({ navigation }) => {
               discription=" list of products redeemed by you"
               image={require("../../../assets/images/redeemedHistory.png")}
             ></NavigateTO>
-            <NavigateTO
-              title="Cashback History"
-              discription=" list of cashback redeemed by you"
-              image={require("../../../assets/images/scannedHistory.png")}
-            ></NavigateTO>
+           
 
             {warrantyOptionEnabled && (
               <NavigateTO
@@ -689,11 +685,7 @@ const Passbook = ({ navigation }) => {
                 discription=" list of products redeemed by you"
                 image={require("../../../assets/images/redeemedHistory.png")}
               ></GridVIew>
-              <GridVIew
-                title="Cashback History"
-                discription=" list of cashback redeemed by you"
-                image={require("../../../assets/images/scannedHistory.png")}
-              ></GridVIew>
+             
 
               {warrantyOptionEnabled && (
                 <GridVIew

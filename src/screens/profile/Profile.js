@@ -22,7 +22,7 @@ import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import ModalWithBorder from '../../components/modals/ModalWithBorder';
 import Close from 'react-native-vector-icons/Ionicons';
-import { gifUri } from '../../utils/GifUrl';
+
 
 
 const Profile = ({ navigation }) => {
@@ -203,6 +203,7 @@ const Profile = ({ navigation }) => {
   const name = profileName ? fetchProfileData?.body.name : '';
   const membership = getActiveMembershipData && getActiveMembershipData.body?.tier.name
   const accountVerified = !Object.values(kycData).includes(false);
+  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/loader.gif')).uri;
 
 
   const ProfileBox = (props) => {
@@ -281,7 +282,7 @@ const Profile = ({ navigation }) => {
             paddingBottom: 40,
 
           }}>
-          {showProfilePic && (
+         
             <TouchableOpacity
               style={{
                 height: 110,
@@ -295,10 +296,10 @@ const Profile = ({ navigation }) => {
               }}
                 onPress={()=>{setModalBorder(true)}}
               >
-              {fetchProfileData?.body?.profile_pic ? (
+              {fetchProfileData?.body?.profile_pic!==null ? (
                 <Image
                   style={{ height: 98, width: 98, resizeMode: 'contain', borderRadius: 49 }}
-                  source={{ uri: BaseUrlImages + fetchProfileData.body?.profile_pic }}></Image>
+                  source={{ uri: BaseUrlImages + fetchProfileData?.body?.profile_pic }}></Image>
               ) : (
                 <Image
                   style={{ height: 60, width: 60, resizeMode: 'contain' }}
@@ -307,7 +308,7 @@ const Profile = ({ navigation }) => {
          
 
             </TouchableOpacity>
-          )}
+          
           <View
             style={{
               alignItems: 'flex-start',

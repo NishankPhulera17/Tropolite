@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { BaseUrlImages } from '../../utils/BaseUrlImages';
 
 const Banner = (props) => {
-  const [showImage, setShowImage] = useState(props.images[0]);
+  const [showImage, setShowImage] = useState(props?.images === undefined ? undefined  : props.images[0]);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Banner = (props) => {
       <View style={{ height: 190, width: '90%',alignItems:"center",justifyContent:"center" }}>
         {showImage && <Image style={{ height: '100%', width: '100%',borderRadius:20,resizeMode:'contain' }} source={{ uri: BaseUrlImages+showImage }} />}
         <View style={{position:"absolute",bottom:10}}>
-        <DotHorizontalList no = {props.images.length} primaryColor="white" secondaryColor={ternaryThemeColor} selectedNo = {index} ></DotHorizontalList>
+        <DotHorizontalList no = {props?.images?.length} primaryColor="white" secondaryColor={ternaryThemeColor} selectedNo = {index} ></DotHorizontalList>
         </View>
 
       </View>

@@ -83,23 +83,27 @@ const RedeemedHistory = ({ navigation }) => {
     isError:cashPerPointIsError
   }] = useCashPerPointMutation()
 
-  useEffect(() => {
-    if (getKycStatusData) {
-      console.log("getKycStatusData", getKycStatusData)
-      if (getKycStatusData.success) {
-        const tempStatus = Object.values(getKycStatusData.body)
+
+  //check kyc status of user before redemption --------------------------
+  // useEffect(() => {
+  //   if (getKycStatusData) {
+  //     console.log("getKycStatusData", getKycStatusData)
+  //     if (getKycStatusData.success) {
+  //       const tempStatus = Object.values(getKycStatusData.body)
         
-        setShowKyc(tempStatus.includes(false))
+  //       setShowKyc(tempStatus.includes(false))
 
        
 
 
-      }
-    }
-    else if (getKycStatusError) {
-      console.log("getKycStatusError", getKycStatusError)
-    }
-  }, [getKycStatusData, getKycStatusError])
+  //     }
+  //   }
+  //   else if (getKycStatusError) {
+  //     console.log("getKycStatusError", getKycStatusError)
+  //   }
+  // }, [getKycStatusData, getKycStatusError])
+  //---------------------------------------------------------------------
+
   useEffect(() => {
     fetchPoints()
     if(appUserData!==undefined)
@@ -246,15 +250,19 @@ const RedeemedHistory = ({ navigation }) => {
         {
           
           console.log("correct redemption date",new Date().getTime(),new Date(redemptionStartData).getTime(),new Date(redemptionEndDate).getTime())
-        if(!showKyc)
-        {
-          setModalVisible(true)
-        }
-        else{
-          setError(true)
-          setMessage("Kyc not completed yet")
-          setNavigateTo("Verification")
-        }
+          navigation.navigate('RedeemGifts')
+
+        // check kyc condition---------------------------
+        // if(!showKyc)
+        // {
+        //   setModalVisible(true)
+        // }
+        // else{
+        //   setError(true)
+        //   setMessage("Kyc not completed yet")
+        //   setNavigateTo("Verification")
+        // }
+        //-------------------------------------------------
         }
         else{
           setError(true)
@@ -265,7 +273,7 @@ const RedeemedHistory = ({ navigation }) => {
     }
     return (
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}
@@ -299,7 +307,7 @@ const RedeemedHistory = ({ navigation }) => {
 
             </View>
           </View>
-        </Modal>
+        </Modal> */}
         <View style={{ alignItems: "center", justifyContent: "center" }}>
           {userPointData && <PoppinsText style={{ color: "black" }} content={userPointData.body.point_earned}></PoppinsText>}
           <PoppinsTextMedium style={{ color: "black", fontSize: 14 }} content="Lifetime Earnings"></PoppinsTextMedium>

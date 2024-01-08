@@ -471,16 +471,16 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
 
       </View>
         <View style={{ width: '100%', alignItems: "center", justifyContent: "center", height: "90%" }}>
-          <View style={{ height: 200, width: '100%', marginBottom: 20 }}>
-            {bannerArray &&
+        {bannerArray?.length!==0 &&<View style={{ height: 200, width: '100%', marginBottom: 20 }}>
+            
               <Banner images={bannerArray}></Banner>
+          </View>
             }
 
-            <CampaignVideoModal isVisible={CampainVideoVisible} onClose={()=>{
+          <CampaignVideoModal isVisible={CampainVideoVisible} onClose={()=>{
               setCmpainVideoVisible(false)
             }} />
-          </View>
-          <View style={{ width: "90%", height: 50, backgroundColor: 'white', marginBottom: 20, flexDirection: 'row', alignItems: 'center', borderColor: '#808080', borderWidth: 0.3, borderRadius: 10 }}>
+          <View style={{ width: "90%", height: 50, backgroundColor: 'white', marginBottom: 20, flexDirection: 'row', alignItems: 'center', borderColor: '#808080', borderWidth: 0.3, borderRadius: 10,marginTop:20 }}>
 
             <View style={{ backgroundColor: 'white', width: '42%', marginHorizontal: 20 }}>
               <PoppinsText content={`Balance Points ${userPointData?.body?.point_balance ? userPointData?.body?.point_balance : "loading"}`} style={{ color: 'black', fontWeight: 'bold' }}></PoppinsText>

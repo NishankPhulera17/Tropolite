@@ -26,8 +26,8 @@ const handleNavigation=()=>{
 }
 
     return (
-        <TouchableOpacity onPress={()=>{handleNavigation()}}  style={{height:140,width:'28%',margin:8,borderTopLeftRadius:100,borderTopRightRadius:100,borderBottomRightRadius:10,borderBottomLeftRadius:10,backgroundColor:backgroundColor,alignItems:"center",justifyContent:"center",borderWidth:0.4,borderColor:borderColor}}>
-            <View style={{height:80,width:80,borderRadius:40,backgroundColor:"white",alignItems:"center",justifyContent:"center",marginBottom:10}}>
+        <TouchableOpacity onPress={()=>{handleNavigation()}}  style={{height:150,width:'28%',margin:8,borderTopLeftRadius:100,borderTopRightRadius:100,borderBottomRightRadius:10,borderBottomLeftRadius:10,backgroundColor:backgroundColor,alignItems:"center",justifyContent:"flex-start",borderWidth:0.4,borderColor:borderColor}}>
+            <View style={{height:80,width:80,borderRadius:40,backgroundColor:"white",alignItems:"center",justifyContent:"center",marginBottom:10,marginTop:10}}>
                 <Image style={{height:80,width:80,resizeMode:'contain'}} source={image}></Image>
             </View>
             <PoppinsTextMedium style={{fontSize:fontSize,fontWeight:fontWeight,color:'black'}} content={text}></PoppinsTextMedium>
