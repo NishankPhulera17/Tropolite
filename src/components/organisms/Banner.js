@@ -8,20 +8,20 @@ import { BaseUrlImages } from '../../utils/BaseUrlImages';
 const Banner = (props) => {
   const [showImage, setShowImage] = useState(props?.images === undefined ? undefined  : props.images[0]);
   const [index, setIndex] = useState(0);
-console.log("Banner images",props.images)
+// console.log("Banner images",props.images)
   useEffect(() => {
-    if(props.images)
-    {
+   
       const interval = setInterval(() => {
         const newIndex = (index + 1) % props?.images?.length;
         setIndex(newIndex);
         setShowImage(props.images[newIndex]);
       }, 4000);
   
-      return () => {
-        clearInterval(interval);
-      };
-    }
+     
+    
+    return () => {
+      clearInterval(interval);
+    };
     
   }, [index]);
 

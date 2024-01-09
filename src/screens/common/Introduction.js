@@ -32,7 +32,7 @@ const Introduction = ({navigation}) => {
     },[])
     // This is the array used to display images, add or remove image from the array to modify as per clients need----------------
     
-    const descriptionImages=[require('../../../assets/images/rewardifyDescription.png')]
+    const descriptionImages=[require('../../../assets/images/rewardifyDescription.png'),require('../../../assets/images/tropoliteIntroduction.jpeg')]
 
     
     
@@ -63,7 +63,7 @@ const Introduction = ({navigation}) => {
     }
 
     return (
-        <ImageBackground source={descriptionImages[imageIndex]} resizeMode='stretch' style={{backgroundColor:"#F2F2F2",height:'100%',width:'100%',flex:1,}}>
+        <ImageBackground source={descriptionImages[imageIndex]} resizeMode='contain' style={{backgroundColor:"#F2F2F2",height:'100%',width:'100%',flex:1}}>
             
             {/* <View style={{width:'100%',height:'60%'}}>
                 <Image style={{height:"100%",width:"100%"}} source={descriptionImages[imageIndex]}></Image>

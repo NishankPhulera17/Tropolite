@@ -42,7 +42,7 @@ const ReportAndIssue = ({ navigation, route }) => {
     ? useSelector(state => state.apptheme.ternaryThemeColor)
     : 'grey';
   const height = Dimensions.get('window').height
-  const data = route.params.productData
+  const data = route?.params?.productData
   console.log("data in report", data, userData)
   const productName = data?.product_code
   const visibleCode = data?.batch_running_code

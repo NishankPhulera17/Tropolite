@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from "react-native";
 import PoppinsTextMedium from "../../components/electrons/customFonts/PoppinsTextMedium";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Plus from "react-native-vector-icons/AntDesign";
 import PoppinsText from "../../components/electrons/customFonts/PoppinsText";
 import {
@@ -13,11 +19,11 @@ import PoppinsTextLeftMedium from "../../components/electrons/customFonts/Poppin
 import { useIsFocused } from "@react-navigation/native";
 import { addAddress } from "../../../redux/slices/redemptionAddressSlice";
 const ListAddress = ({ navigation }) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState();
   const [selectedAddress, setSelectedAddress] = useState();
   const [addressList, setAddressList] = useState();
-  const focused = useIsFocused()
-  const dispatch = useDispatch()
+  const focused = useIsFocused();
+  const dispatch = useDispatch();
   const ternaryThemeColor = useSelector(
     (state) => state.apptheme.ternaryThemeColor
   )
@@ -37,8 +43,7 @@ const ListAddress = ({ navigation }) => {
     console.log("Selected", data);
     setSelectedIndex(data.index);
     // setSelectedAddress(data)
-    dispatch(addAddress(data))
-
+    dispatch(addAddress(data));
   };
   useEffect(() => {
     const getToken = async () => {
@@ -67,7 +72,7 @@ const ListAddress = ({ navigation }) => {
       }
     };
     getToken();
-  }, [deleteAddressData,focused]);
+  }, [deleteAddressData, focused]);
   useEffect(() => {
     if (deleteAddressData) {
       console.log("deleteAddressData", deleteAddressData);
@@ -91,6 +96,7 @@ const ListAddress = ({ navigation }) => {
   }, [getAllAddressData, getAllAddressError]);
 
   const deleteAddress = (data) => {
+    console.log("deleteaddress",data.id)
     const getToken = async () => {
       const credentials = await Keychain.getGenericPassword();
       if (credentials) {
@@ -123,23 +129,26 @@ const ListAddress = ({ navigation }) => {
       state: state,
       country: country,
       pincode: pincode,
-      data:data
+      data: data,
     };
 
     useEffect(() => {
-      console.log("props.isSelected", props.isSelected=="1");
+      console.log("props.isSelected", props.isSelected == "1");
       if (props.isSelected == "1") {
         setSelected(true);
+       
         // props.setAddress(addressJson);
       }
     }, [props.isSelected]);
 
     useEffect(() => {
-      if (selectedIndex === index) {
-        setSelected(true);
-        props.setAddress(addressJson);
-      } else {
-        setSelected(false);
+      if (selectedIndex) {
+        if (selectedIndex === index) {
+          setSelected(true);
+          props.setAddress(addressJson);
+        } else {
+          setSelected(false);
+        }
       }
     }, [selected, selectedIndex]);
 
@@ -160,6 +169,7 @@ const ListAddress = ({ navigation }) => {
 
     const deleteAddress = () => {
       props.deleteAddress(data);
+      console.log("delete address")
     };
 
     return (
@@ -322,30 +332,34 @@ const ListAddress = ({ navigation }) => {
           backgroundColor: "white",
         }}
       >
-        <ScrollView 
-        contentContainerStyle={{alignItems:"center",justifyContent:'center'}}
-        style={{width:'100%'}}>
-        {addressList &&
-          addressList.map((item, index) => {
-            return (
-              <AddressComponent
-                key ={index}
-                data={item}
-                deleteAddress={deleteAddress}
-                isSelected={item.status}
-                selectedIndex={selectedIndex}
-                setAddress={setAddress}
-                address={item.address}
-                city={item.city}
-                state={item.state}
-                district={item.district}
-                pincode={item.pincode}
-                country="India"
-                index={index}
-              ></AddressComponent>
-            );
-          })}
-          </ScrollView>
+        <ScrollView
+          contentContainerStyle={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          style={{ width: "100%" }}
+        >
+          {addressList &&
+            addressList.map((item, index) => {
+              return (
+                <AddressComponent
+                  key={index}
+                  data={item}
+                  deleteAddress={deleteAddress}
+                  isSelected={item.status}
+                  selectedIndex={selectedIndex}
+                  setAddress={setAddress}
+                  address={item.address}
+                  city={item.city}
+                  state={item.state}
+                  district={item.district}
+                  pincode={item.pincode}
+                  country="India"
+                  index={index}
+                ></AddressComponent>
+              );
+            })}
+        </ScrollView>
       </View>
       <View
         style={{
@@ -357,11 +371,30 @@ const ListAddress = ({ navigation }) => {
           paddingTop: 30,
         }}
       >
-        <TouchableOpacity style={{height:40,width:120,backgroundColor:ternaryThemeColor,alignItems:'center',justifyContent:'center',borderRadius:4,position:'absolute',left:20}} onPress={()=>{
-          navigation.navigate('OtpVerification',{type:"Gift"})
-        }}>
-          <PoppinsTextMedium style={{fontSize:18,color:'white',fontWeight:'700'}} content="Select"></PoppinsTextMedium>
-
+        <TouchableOpacity
+          style={{
+            height: 40,
+            width: 120,
+            backgroundColor: ternaryThemeColor,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 4,
+            position: "absolute",
+            left: 20,
+          }}
+          onPress={() => {
+            console.log("selected address",selectedIndex)
+            if(selectedIndex!==undefined)
+            {
+              
+            navigation.navigate("OtpVerification", { type: "Gift" });
+            }
+          }}
+        >
+          <PoppinsTextMedium
+            style={{ fontSize: 18, color: "white", fontWeight: "700" }}
+            content="Select"
+          ></PoppinsTextMedium>
         </TouchableOpacity>
         <View
           style={{

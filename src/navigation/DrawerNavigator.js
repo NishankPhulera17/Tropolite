@@ -352,6 +352,9 @@ const CustomDrawer = () => {
               else if (props.title.toLowerCase() === "scheme") {
                 navigation.navigate('Scheme')
               }
+              else if (props.title.toLowerCase() === "complaint list") {
+                navigation.navigate('QueryList')
+              }
               else if (props.title.toLowerCase() === "feedback") {
                 navigation.navigate('Feedback')
               }

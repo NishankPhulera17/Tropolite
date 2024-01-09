@@ -115,10 +115,10 @@ const SelectUser = ({navigation}) => {
          <ScrollView showsVerticalScrollIndicator={false} style={{}}>
       <View
         style={{
-          height: 140,
+          height: 300,
           width: '100%',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}>
         
           <Image
@@ -126,11 +126,11 @@ const SelectUser = ({navigation}) => {
               height: 200,
               width: 240,
               resizeMode: 'contain',
-              top: 60,
+              
             }}
             source={{uri: `${BaseUrl}/api/images/${icon}`}}></Image>
 
-            <View style={{width:'80%',alignItems:"center",justifyContent:'center',borderColor:ternaryThemeColor,borderTopWidth:1,borderBottomWidth:1,height:40,marginTop:40}}>
+            <View style={{width:'80%',alignItems:"center",justifyContent:'center',borderColor:ternaryThemeColor,borderTopWidth:1,borderBottomWidth:1,height:40}}>
               <PoppinsTextMedium style={{color:'#171717',fontSize:20,fontWeight:'700'}} content="Choose your profile "></PoppinsTextMedium>
             </View>
         {/* </View> */}
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop:100,
+    marginTop:20,
     
   },
 });
