@@ -391,11 +391,9 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
       if (getWorkflowData.length === 1 && getWorkflowData[0] === "Genuinity") {
         dispatch(setIsGenuinityOnly())
       }
-      const removedWorkFlow = getWorkflowData.body[0]?.program.filter((item, index) => {
-        return item !== "Warranty"
-      })
+     
       console.log("getWorkflowData", getWorkflowData)
-      dispatch(setProgram(removedWorkFlow))
+      dispatch(setProgram(getWorkflowData.body[0]?.program))
       dispatch(setWorkflow(getWorkflowData.body[0]?.workflow_id))
 
     }
@@ -471,7 +469,7 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
 
       </View>
         <View style={{ width: '100%', alignItems: "center", justifyContent: "center", height: "90%" }}>
-        {bannerArray?.length!==0 &&<View style={{ height: 200, width: '100%', marginBottom: 20 }}>
+        {bannerArray && <View style={{ height: 200, width: '100%', marginBottom: 20 }}>
             
               <Banner images={bannerArray}></Banner>
           </View>

@@ -8,7 +8,7 @@ import StarRating from 'react-native-star-rating';
 import FeedbackModal from '../../components/feedback/FeedbackModal';
 import { useAddFeedbackMutation } from '../../apiServices/feedbackApi/FeedbackApi';
 import * as Keychain from 'react-native-keychain';
-
+import ErrorModal from '../../components/modals/ErrorModal';
 
 const Feedback = ({ navigation }) => {
 
@@ -83,7 +83,7 @@ const Feedback = ({ navigation }) => {
 
     useEffect(()=>{
         if(addFeedbackData?.success){
-            console.log("addFeedbackData",addFeedbackData.success)
+            console.log("addFeedbackData",addFeedbackData)
             setFeedback(" ")
             setStarCount(0)
             setIsSuccessModalVisible(true)

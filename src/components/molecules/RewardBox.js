@@ -10,7 +10,7 @@ import { gifUri } from '../../utils/GifUrl';
 const RewardBox = () => {
     const workflow = useSelector(state => state.appWorkflow.program)
     const id = useSelector(state => state.appusersdata.id);
-
+    console.log("Workflowis",workflow)
 
 
     const [userPointFunc, {
@@ -61,7 +61,7 @@ const RewardBox = () => {
                 />
             }
 
-            <ScrollView contentContainerStyle={{ }} style={{width:'100%'   }} showsHorizontalScrollIndicator={false} horizontal={true}>
+            {workflow && <ScrollView contentContainerStyle={{ }} style={{width:'100%'   }} showsHorizontalScrollIndicator={false} horizontal={true}>
                 {
                     workflow.includes("Static Coupon") && <RewardSquare color="#FFE2E6" image={require('../../../assets/images/voucher.png')} title="My Coupons"></RewardSquare>
                 }
@@ -89,7 +89,7 @@ const RewardBox = () => {
                 {
                     workflow.includes("Points On Product") && userPointData && <RewardSquare amount={String(Number(userPointData.body.point_reserved) + Number(userPointData.body.point_balance)).substring(0,6)} color="#DCFCE7" image={require('../../../assets/images/points.png')} title="Total Points"></RewardSquare>
                 } */}
-            </ScrollView>
+            </ScrollView>}
 
         </View>
     )

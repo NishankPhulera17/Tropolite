@@ -70,21 +70,25 @@ const Passbook = ({ navigation }) => {
     getActiveMembershipData && getActiveMembershipData.body?.tier.name;
 
   const getOptionsAccordingToWorkflow = () => {
-    if (workflowProgram.includes("Warranty")) {
-      setWarrantyOptionEnabled(true);
+    if(workflowProgram)
+    {
+      if (workflowProgram.includes("Warranty")) {
+        setWarrantyOptionEnabled(true);
+      }
+      if (workflowProgram.includes("Static Coupon")) {
+        setCouponOptionEnabled(true);
+      }
+      if (workflowProgram.includes("Points On Product")) {
+        setPointsOptionEnabled(true);
+      }
+      if (workflowProgram.includes("Cashback")) {
+        setCashbackOptionEnabled(true);
+      }
+      if (workflowProgram.includes("Wheel")) {
+        setWheelOptionEnabled(true);
+      }
     }
-    if (workflowProgram.includes("Static Coupon")) {
-      setCouponOptionEnabled(true);
-    }
-    if (workflowProgram.includes("Points On Product")) {
-      setPointsOptionEnabled(true);
-    }
-    if (workflowProgram.includes("Cashback")) {
-      setCashbackOptionEnabled(true);
-    }
-    if (workflowProgram.includes("Wheel")) {
-      setWheelOptionEnabled(true);
-    }
+   
   };
   useEffect(() => {
     getOptionsAccordingToWorkflow();

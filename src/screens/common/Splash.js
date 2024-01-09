@@ -223,7 +223,7 @@ const Splash = ({ navigation }) => {
       getData()
     }
     else {
-      getAppTheme("tropilite")
+      getAppTheme("tropolite")
 
       console.log("getAppThemeIsError", getAppThemeIsError)
       console.log("getAppThemeError", getAppThemeError)
