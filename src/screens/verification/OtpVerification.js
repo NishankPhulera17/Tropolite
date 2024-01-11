@@ -32,7 +32,7 @@ const OtpVerification = ({navigation,route}) => {
 
   const pointsConversion = useSelector(state=>state.redemptionData.pointConversion)
   const cashConversion = useSelector(state=>state.redemptionData.cashConversion)
-console.log("Point conversion and cash conversion data",pointsConversion,cashConversion)
+// console.log("Point conversion and cash conversion data",pointsConversion,cashConversion)
   const [
     verifyOtpForNormalUseFunc,
     {
@@ -78,7 +78,7 @@ console.log("Point conversion and cash conversion data",pointsConversion,cashCon
   useEffect(()=>{
     if(redeemCashbackData)
     {
-        console.log("redeemCashbackData",redeemCashbackData)
+        // console.log("redeemCashbackData",redeemCashbackData)
         setSuccess(true)
         setMessage(redeemCashbackData.message)
     }
@@ -121,11 +121,14 @@ console.log("Point conversion and cash conversion data",pointsConversion,cashCon
       console.log("redeemGiftsData", redeemGiftsData)
       setSuccess(true)
       setMessage(redeemGiftsData.message)
+      setShowRedeemButton(true)
     }
     else if (redeemGiftsError) {
       console.log("redeemGiftsError", JSON.stringify(redeemGiftsError))
       setMessage(redeemGiftsError.data.message)
       setError(true)
+      setShowRedeemButton(true)
+
     }
   }, [redeemGiftsError, redeemGiftsData])
 
@@ -204,6 +207,7 @@ console.log("Point conversion and cash conversion data",pointsConversion,cashCon
         data: data
       }
       redeemGiftsFunc(params)
+      setShowRedeemButton(false)
     
     }
     else if(type==="Cashback"){
@@ -357,7 +361,7 @@ console.log("Point conversion and cash conversion data",pointsConversion,cashCon
         
 
       </View>
-      {showRedeemButton && <View style={{alignItems:'center',justifyContent:'center',width:'100%',position: 'absolute',bottom:20}}>
+      {showRedeemButton && !redeemGiftsIsLoading && <View style={{alignItems:'center',justifyContent:'center',width:'100%',position: 'absolute',bottom:20}}>
         <TouchableOpacity onPress={()=>{
           finalGiftRedemption()
         }} style={{height:50,width:140,alignItems:'center',justifyContent:'center',backgroundColor:ternaryThemeColor,borderRadius:4}}>

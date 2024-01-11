@@ -17,6 +17,8 @@ import Logo from "react-native-vector-icons/AntDesign";
 import moment from "moment";
 import { BaseUrlImages } from "../../utils/BaseUrlImages";
 import { useFetchGiftCatalogueByUserTypeAndCatalogueTypeMutation } from "../../apiServices/gifts/GiftApi";
+import FastImage from "react-native-fast-image";
+import { gifUri } from "../../utils/GifUrl";
 
 export default function GiftCatalogue({ navigation }) {
   const [scheme, setScheme] = useState([]);
@@ -33,7 +35,7 @@ export default function GiftCatalogue({ navigation }) {
 
   const [
     fetchGiftCatalogue,
-    { data: giftCatalogueData, error: giftCatalogueError },
+    { data: giftCatalogueData, error: giftCatalogueError,isLoading:giftCatalogueIsLoading },
   ] = useFetchGiftCatalogueByUserTypeAndCatalogueTypeMutation();
 
   useEffect(() => {
@@ -330,8 +332,19 @@ export default function GiftCatalogue({ navigation }) {
                   ></SchemeComponent>
                 );
               })}
+                {giftCatalogueIsLoading &&
+              <FastImage
+                   style={{ width: 100, height: 100, alignSelf: 'center',justifyContent:'center', marginTop: '50%' }}
+                   source={{
+                       uri: gifUri, // Update the path to your GIF
+                       priority: FastImage.priority.normal,
+                   }}
+                   resizeMode={FastImage.resizeMode.contain}
+               />
+               }
           </View>
         </ScrollView>
+      
       </View>
     </View>
   );

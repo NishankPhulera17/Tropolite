@@ -142,14 +142,14 @@ const ListAddress = ({ navigation }) => {
     }, [props.isSelected]);
 
     useEffect(() => {
-      if (selectedIndex) {
+     
         if (selectedIndex === index) {
           setSelected(true);
           props.setAddress(addressJson);
         } else {
           setSelected(false);
         }
-      }
+      
     }, [selected, selectedIndex]);
 
     const setSelectedAddress = (selectedData) => {

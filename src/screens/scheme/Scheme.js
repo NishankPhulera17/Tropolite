@@ -16,7 +16,9 @@ import * as Keychain from 'react-native-keychain';
 import Logo from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
 import { BaseUrlImages } from '../../utils/BaseUrlImages';
-
+import FastImage from 'react-native-fast-image';
+import { gifUri } from '../../utils/GifUrl';
+import DataNotFound from '../data not found/DataNotFound';
 export default function Scheme({navigation}) {
     const [scheme, setScheme] = useState([])
     const [gifts, setGifts] = useState([])
@@ -271,6 +273,19 @@ useEffect(()=>{
           <SchemeComponent key={index} name={item.name} worth={item.value} coin={item.points} image={item.images[0]}></SchemeComponent>
                     )
                 })
+            }
+            {
+              checkActiveSchemeIsLoading && <FastImage
+              style={{ width: 100, height: 100, alignSelf: 'center',justifyContent:'center', marginTop: '50%' }}
+              source={{
+                  uri: gifUri, // Update the path to your GIF
+                  priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+          />
+            }
+            {
+              gifts.length==0 && <DataNotFound></DataNotFound>
             }
         </View>
         </ScrollView>

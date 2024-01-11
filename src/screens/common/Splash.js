@@ -23,7 +23,7 @@ const Splash = ({ navigation }) => {
   const [gotLoginData, setGotLoginData] = useState()
 
 
-  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/Tropolite.gif')).uri;
+  const gifUri = Image.resolveAssetSource(require('../../../assets/gif/tropolite.gif')).uri;
   // generating functions and constants for API use cases---------------------
   const [
     getAppTheme,
@@ -145,11 +145,14 @@ const Splash = ({ navigation }) => {
         {
           if(value==="Yes")
           {
-            setTimeout(() => {
-            navigation.navigate('SelectUser');
+            // setTimeout(() => {
+            // navigation.navigate('SelectUser');
               
-            }, 2000);
-
+            // }, 2000);
+            setTimeout(() => {
+              navigation.navigate('Introduction')
+                
+              }, 2000);
           }
           else{
             setTimeout(() => {

@@ -330,9 +330,9 @@ const VerifyOtp = ({ navigation, route }) => {
         justifyContent: 'center',
         backgroundColor: "white",
       }}>
-        <View
+         <View
           style={{
-            height: 120,
+            height: 200,
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
@@ -352,17 +352,15 @@ const VerifyOtp = ({ navigation, route }) => {
           </TouchableOpacity>
           <Image
             style={{
-              height: 50,
-              width: 100,
+              height: 140,
+              width: 200,
               resizeMode: 'contain',
-              top: 20,
-              position: "absolute",
-              left: 50,
-              
+              bottom:10
+
 
 
             }}
-            source={{uri:BaseUrlImages+icon}}></Image>
+            source={require('../../../assets/images/tropoliterewardlogo.png')}></Image>
         </View>
         <View
           style={{
