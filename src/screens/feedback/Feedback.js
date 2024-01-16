@@ -176,7 +176,7 @@ const Feedback = ({ navigation }) => {
             </View>
 
 
-            <FeedbackModal isVisible={isSuccessModalVisible} user={"Amit"} onClose={hideSuccessModal} />
+            <FeedbackModal isVisible={isSuccessModalVisible} user={userName} onClose={hideSuccessModal} />
 
             {error && <ErrorModal modalClose={()=>{setError(false)}} message={message} openModal={error}></ErrorModal>}
 

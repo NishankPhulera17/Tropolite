@@ -119,10 +119,10 @@ const TierDetails = ({navigation}) => {
 
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <PoppinsTextMedium
-                                                        style={{ color: '#000000', fontSize: 18, fontWeight: '600' }}
+                                                        style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
                                                         content={itm.range_start + "-"}></PoppinsTextMedium>
                                                     <PoppinsTextMedium
-                                                        style={{ color: '#000000', fontSize: 18, fontWeight: '600' }}
+                                                        style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
                                                         content={itm.range_end}></PoppinsTextMedium>
                                                 </View>
                                             </View>
@@ -135,7 +135,7 @@ const TierDetails = ({navigation}) => {
                                                 
                                 <View style={{ flexDirection: 'row' }}>
                                     <PoppinsTextMedium
-                                        style={{ color: '#000000', fontSize: 18, fontWeight: '600' }}
+                                        style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
                                         content={itm.per_month}></PoppinsTextMedium>
                                 </View>
 
@@ -150,7 +150,7 @@ const TierDetails = ({navigation}) => {
 
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <PoppinsTextMedium
-                                        style={{ color: '#000000', fontSize: 18, fontWeight: '600' }}
+                                        style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
                                         content={itm.points}></PoppinsTextMedium>
                                                 </View>
 
@@ -165,7 +165,7 @@ const TierDetails = ({navigation}) => {
                                                 
                                 <View style={{ flexDirection: 'row' }}>
                                     <PoppinsTextMedium
-                                        style={{ color: '#000000', fontSize: 18, fontWeight: '600' }}
+                                        style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
                                         content ={itm.gift_discount}></PoppinsTextMedium>
                                 </View>
 

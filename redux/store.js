@@ -16,6 +16,7 @@ import redemptionAddressSlice from './slices/redemptionAddressSlice'
 import redemptionDataSlice from './slices/redemptionDataSlice'
 import fcmTokenSlice from './slices/fcmTokenSlice'
 import userMappingSlice from './slices/userMappingSlice'
+import membershipSlice from './slices/membershipSlice'
 
 export const store = configureStore({
   reducer: {
@@ -34,7 +35,8 @@ export const store = configureStore({
     address:redemptionAddressSlice,
     redemptionData:redemptionDataSlice,
     fcmToken:fcmTokenSlice,
-    userMapping:userMappingSlice
+    userMapping:userMappingSlice,
+    membership:membershipSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),

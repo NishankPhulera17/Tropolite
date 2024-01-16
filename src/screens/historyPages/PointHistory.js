@@ -13,6 +13,7 @@ import { BaseUrlImages } from '../../utils/BaseUrlImages';
 import { useGetPointSharingDataMutation } from '../../apiServices/pointSharing/pointSharingApi';
 import { dispatchCommand } from 'react-native-reanimated';
 import InputDate from '../../components/atoms/input/InputDate';
+import { useTropolitePointEnteriesMutation } from '../../apiServices/workflow/rewards/GetPointsApi';
 
 const PointHistory = ({ navigation }) => {
     const [displayList, setDisplayList] = useState([])
@@ -48,6 +49,13 @@ const PointHistory = ({ navigation }) => {
         isLoading: fetchUserPointsHistoryLoading,
         isError: fetchUserPointsHistoryIsError
     }] = useFetchUserPointsHistoryMutation()
+    
+    const [tropolitePointEnteriesFunc, {
+        data: tropolitePointEnteriesData,
+        error: tropolitePointEnteriesError,
+        isLoading: tropolitePointEnteriesIsLoading,
+        isError: tropolitePointEnteriesIsError
+    }] = useTropolitePointEnteriesMutation()
 
 
 
@@ -57,8 +65,8 @@ const PointHistory = ({ navigation }) => {
 
 
     useEffect(() => {
-        // fetchPoints()
-        getRegistrationPoints("Orders")
+        fetchPoints()
+        // getRegistrationPoints("Orders")
     }, [])
     const userId = useSelector(state => state.appusersdata.id);
 
@@ -67,12 +75,13 @@ const PointHistory = ({ navigation }) => {
         const token = credentials.username;
         console.log("userId", userId)
         const params = {
-            userId: String(userId),
+            app_user_id: String(userId),
             token: token
         }
-        userPointFunc(params)
-        fetchUserPointsHistoryFunc(params)
+        // userPointFunc(params)
+        // fetchUserPointsHistoryFunc(params)
 
+        tropolitePointEnteriesFunc(params)
     }
     useEffect(()=>{
         console.log("DisplayList",displayList)
@@ -105,31 +114,31 @@ const PointHistory = ({ navigation }) => {
     }, [getPointSharingData, getPointSharingError])
 
     useEffect(() => {
-        if (fetchUserPointsHistoryData) {
-            console.log("fetchUserPointsHistoryData", JSON.stringify(fetchUserPointsHistoryData))
+        if (tropolitePointEnteriesData) {
+            console.log("tropolitePointEnteriesData", JSON.stringify(tropolitePointEnteriesData))
             
 
-            if(fetchUserPointsHistoryData.success)
+            if(tropolitePointEnteriesData.success)
             {
                 setIsLoading(false)
-            setDisplayList(fetchUserPointsHistoryData.body.data)
+            setDisplayList(tropolitePointEnteriesData.body)
             }
         }
-        else if (fetchUserPointsHistoryError) {
-            console.log("fetchUserPointsHistoryError", fetchUserPointsHistoryError)
+        else if (tropolitePointEnteriesError) {
+            console.log("tropolitePointEnteriesError", tropolitePointEnteriesError)
         }
 
-    }, [fetchUserPointsHistoryData, fetchUserPointsHistoryError])
+    }, [tropolitePointEnteriesData, tropolitePointEnteriesError])
 
     useEffect(()=>{
-        if(getPointSharingIsLoading || fetchUserPointsHistoryLoading)
+        if(getPointSharingIsLoading || tropolitePointEnteriesIsLoading)
     {
         setIsLoading(true)
     }
     else{
         setIsLoading(false)
     }
-},[getPointSharingIsLoading,fetchUserPointsHistoryLoading])
+},[getPointSharingIsLoading,tropolitePointEnteriesIsLoading])
 
     const fetchDataAccToFilter=()=>{
     
@@ -318,9 +327,11 @@ const PointHistory = ({ navigation }) => {
         const type = props.type
         const points = props?.points
         const is_reverted = props.is_reverted
+        const billValue = props.billValue
+        const invoiceId = props.invoiceId
         console.log("point props", props,type,image)
         return (
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", margin: 8, borderBottomWidth: 1, borderColor: '#DDDDDD', paddingBottom: 10,width:'100%',height:100,backgroundColor:'white' }}>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", margin: 8, borderBottomWidth: 1, borderColor: '#DDDDDD', paddingBottom: 10,width:'100%',height:120,backgroundColor:'white' }}>
                 <View style={{ height: 60, width: '14%', alignItems: "center", justifyContent: "center", borderRadius: 10, borderWidth: 1, borderColor: '#DDDDDD',position:'absolute',left:10,}}>
                     {image ? <Image style={{ height: 40, width: 40, resizeMode: "contain" }} source={{uri:BaseUrlImages+image}}></Image>: <Image style={{ height: 40, width: 40, resizeMode: "contain" }} source={require('../../../assets/images/tropoliteLogo.png')}></Image>}
                 </View>
@@ -328,8 +339,12 @@ const PointHistory = ({ navigation }) => {
                 {type!=="registration_bonus" && <PoppinsTextMedium style={{ fontWeight: '700', fontSize: 14, color: 'black' }} content={description}></PoppinsTextMedium>}
                     {type==="registration_bonus" &&<PoppinsTextMedium style={{ fontWeight: '400', fontSize: 14, color: 'black',fontWeight: '700' }} content={`Registration Bonus`}></PoppinsTextMedium>}
 
-                    {type!=="registration_bonus" &&<PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Product Code : ${productCode}`}></PoppinsTextMedium>}
-                    {/* {type!=="registration_bonus" && <PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Visible Code : ${visibleCode}`}></PoppinsTextMedium>} */}
+                     <PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Product Code : ${productCode}`}></PoppinsTextMedium>
+                    
+                    
+                     <PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Invoice ID : ${invoiceId}`}></PoppinsTextMedium>
+                     <PoppinsTextMedium style={{ fontWeight: '400', fontSize: 12, color: 'black' }} content={`Bill Value : ${billValue}`}></PoppinsTextMedium>
+
                     <PoppinsTextMedium style={{ fontWeight: '200', fontSize: 12, color: 'black' }} content={date}></PoppinsTextMedium>
                     
                     <PoppinsTextMedium style={{ fontWeight: '200', fontSize: 12, color: 'black' }} content={time}></PoppinsTextMedium>
@@ -372,7 +387,7 @@ const PointHistory = ({ navigation }) => {
             {/* <PointCategoryTab></PointCategoryTab> */}
 
             {
-                displayList.length==0 && !isLoading &&
+                displayList?.length==0 && !isLoading &&
                 <View>
                     <FastImage
                         style={{ width: 180, height: 180, alignSelf: 'center', marginTop: '30%' }}
@@ -408,7 +423,7 @@ const PointHistory = ({ navigation }) => {
                 renderItem={({ item, index }) => {
                     console.log(index + 1, item)
                     return (
-                        <ListItem visibleCode = {item.batch_running_code} type = {item?.cause?.type} image={item?.images ===undefined ? undefined : item?.images[0]} description={item?.product_name} productCode={item?.product_code} amount={item?.points} status={item?.status} points={item?.points} is_reverted= {item?.is_reverted} date = {moment(item?.created_at).format("DD-MMM-YYYY")} time={moment(item?.created_at).format("HH:mm a")}/>
+                        <ListItem billValue={item.bill_value} invoiceId = {item.invoice_id} visibleCode = {item.batch_running_code} type = {item?.cause?.type} image={item?.images ===undefined ? undefined : item?.images[0]} description={item?.product_name} productCode={item?.product_code} amount={item?.points} status={item?.status} points={item?.points} is_reverted= {item?.is_reverted} date = {moment(item?.created_at).format("DD-MMM-YYYY")} time={moment(item?.created_at).format("HH:mm a")}/>
                     )
                 }}
                 keyExtractor={(item,index) => index}

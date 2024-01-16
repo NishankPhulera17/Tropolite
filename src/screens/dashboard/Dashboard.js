@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView, Platform, TouchableOpacity,Image} from 'react-native';
+import { View, StyleSheet, ScrollView, Platform, TouchableOpacity,Image,BackHandler} from 'react-native';
 import MenuItems from '../../components/atoms/MenuItems';
 import { BaseUrl } from '../../utils/BaseUrl';
 import { useGetAppDashboardDataMutation } from '../../apiServices/dashboard/AppUserDashboardApi';
@@ -35,6 +35,8 @@ import { useFetchAllQrScanedListMutation } from '../../apiServices/qrScan/AddQrA
 import FastImage from 'react-native-fast-image';
 import ScannedDetailsBox from '../../components/organisms/ScannedDetailsBox';
 import moment from 'moment';
+import UserInfoModal from '../../components/modals/UserInfoModal';
+import { setMembershipData,setActiveMembershipData } from '../../../redux/slices/membershipSlice';
 
 const Dashboard = ({ navigation }) => {
   const [dashboardItems, setDashboardItems] = useState()
@@ -141,7 +143,10 @@ const Dashboard = ({ navigation }) => {
     userPointFunc(params)
 
   }
-
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+    return () => backHandler.remove()
+  }, [])
  
   useEffect(() => {
     fetchPoints()
@@ -205,6 +210,7 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
       console.log("getActiveMembershipData", JSON.stringify(getActiveMembershipData))
       if(getActiveMembershipData.success)
       {
+       
         setMembership(getActiveMembershipData.body?.tier.name)
       }
     }
@@ -475,9 +481,13 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
           </View>
             }
 
-          <CampaignVideoModal isVisible={CampainVideoVisible} onClose={()=>{
+          {/* <CampaignVideoModal isVisible={CampainVideoVisible} onClose={()=>{
+              setCmpainVideoVisible(false)
+            }} /> */}
+            <UserInfoModal membershipData={getActiveMembershipData?.body} isVisible={CampainVideoVisible} onClose={()=>{
               setCmpainVideoVisible(false)
             }} />
+
           <View style={{ width: "90%", height: 50, backgroundColor: 'white', marginBottom: 20, flexDirection: 'row', alignItems: 'center', borderColor: '#808080', borderWidth: 0.3, borderRadius: 10,marginTop:20 }}>
 
             <View style={{ backgroundColor: 'white', width: '42%', marginHorizontal: 20 }}>

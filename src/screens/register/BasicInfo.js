@@ -93,7 +93,7 @@ const BasicInfo = ({ navigation, route }) => {
   const navigatingFrom = route.params.navigatingFrom
   const name = route.params?.name
   const mobile = route.params?.mobile
-  console.log("appUsers", userType, userTypeId, isManuallyApproved, name, mobile)
+  console.log("appUsers", userType, userTypeId, isManuallyApproved, name, mobile,needsApproval)
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
 
@@ -291,6 +291,7 @@ const BasicInfo = ({ navigation, route }) => {
       if (getFormData.message !== "Not Found") {
         console.log("Form Fields", JSON.stringify(getFormData))
         const values = Object.values(getFormData.body.template)
+        console.log("getFormData",values)
         setRegistrationForm(values)
       }
       else {
@@ -475,6 +476,7 @@ const BasicInfo = ({ navigation, route }) => {
 
   const handleRegistrationFormSubmission = () => {
     const inputFormData = {}
+    let emailRequired;
     inputFormData["user_type"] = userType;
     inputFormData["user_type_id"] = userTypeId;
     inputFormData["is_approved_needed"] = isManuallyApproved;
@@ -486,22 +488,34 @@ const BasicInfo = ({ navigation, route }) => {
     for (var i = 0; i < responseArray.length; i++) {
 
       inputFormData[responseArray[i].name] = responseArray[i].value
+      if(responseArray[i].name=="email")
+      {
+        emailRequired = responseArray[i].required
+      }
     }
     const body = inputFormData
 
-    if (otpVerified) {
+   
       const keys = Object.keys(body)
       const values = Object.values(body)
 
       if (keys.includes('email')) {
         const index = keys.indexOf('email')
-        if (isValidEmail(values[index])) {
+        if(emailRequired)
+        {
+          if (isValidEmail(values[index])) {
+            registerUserFunc(body)
+          }
+          else {
+            setError(true)
+            setMessage("Email isn't verified")
+          }
+        }
+        else{
           registerUserFunc(body)
+
         }
-        else {
-          setError(true)
-          setMessage("Email isn't verified")
-        }
+       
       }
       else {
         registerUserFunc(body)
@@ -522,11 +536,8 @@ const BasicInfo = ({ navigation, route }) => {
       // ---------------------------------------------------------------------
 
 
-    }
-    else {
-      setError(true)
-      setMessage("Otp isn't verified yet")
-    }
+    
+    
     console.log("responseArraybody", body)
   }
 
@@ -621,6 +632,7 @@ const BasicInfo = ({ navigation, route }) => {
               if (item.type === 'text') {
                 console.log("the user name", userName)
                 if ((item.name === 'phone' || item.name === "mobile")) {
+                  console.log("mobileNumber",item.name)
                   return (
                     <>
 
@@ -854,6 +866,103 @@ const BasicInfo = ({ navigation, route }) => {
                     label={item.label}
                     action="Select File"></ImageInput>
                 );
+              }
+              else if (item.type==="number")
+              {
+                if ((item.name === 'phone' || item.name === "mobile")) {
+                  console.log("mobileNumber",item.name)
+                  return (
+                    <>
+
+                      <View style={{ flexDirection: 'row', flex: 1 }}>
+
+                        <View style={{ flex: 0.75 }}>
+                          {navigatingFrom === "OtpLogin" && <TextInputNumericRectangle
+                            jsonData={item}
+                            key={index}
+                            maxLength={10}
+                            handleData={handleChildComponentData}
+                            placeHolder={item.name}
+                            value={userMobile}
+                            label={item.label}
+                            isEditable={false}
+                          >
+                            {' '}
+                          </TextInputNumericRectangle>}
+                          {navigatingFrom === "PasswordLogin" && <TextInputNumericRectangle
+                            jsonData={item}
+                            key={index}
+                            maxLength={10}
+                            handleData={handleChildComponentData}
+                            placeHolder={item.name}
+                            label={item.label}
+
+                          >
+                            {' '}
+                          </TextInputNumericRectangle>}
+                        </View>
+
+                        {otpVerified ? <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                          <Image style={{ height: 30, width: 30, resizeMode: 'contain' }} source={require('../../../assets/images/greenTick.png')}></Image>
+                        </View> : <TouchableOpacity style={{ flex: 0.15, marginTop: 6, backgroundColor: ternaryThemeColor, alignItems: 'center', justifyContent: 'center', height: 50, borderRadius: 5 }} onPress={()=>{
+                          handleTimer()
+                        }}>
+                          <PoppinsTextLeftMedium style={{ color: 'white', fontWeight: '800', padding: 5 }} content="Get OTP"></PoppinsTextLeftMedium>
+                        </TouchableOpacity>}
+                      </View>
+
+
+
+                      {console.log("conditions", otpVerified, otpVisible)}
+                      {!otpVerified && otpVisible &&
+                        <>
+
+                          <PoppinsTextLeftMedium style={{ marginRight: '70%' }} content="OTP"></PoppinsTextLeftMedium>
+
+                          <OtpInput
+                            getOtpFromComponent={getOtpFromComponent}
+                            color={'white'}></OtpInput>
+
+                          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 4 }}>
+                              <Image
+                                style={{
+                                  height: 20,
+                                  width: 20,
+                                  resizeMode: 'contain',
+
+                                }}
+                                source={require('../../../assets/images/clock.png')}></Image>
+                              <Text style={{ color: ternaryThemeColor, marginLeft: 4 }}>{timer}</Text>
+                            </View>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                              <Text style={{ color: ternaryThemeColor, marginTop: 10 }}>Didn't you recieve any code?</Text>
+
+                              <Text onPress={()=>{handleTimer()}} style={{ color: ternaryThemeColor, marginTop: 6, fontWeight: '600', fontSize: 16 }}>Resend Code</Text>
+
+                            </View>
+                          </View>
+                        </>
+                      }
+                    </>
+                  );
+
+
+                }
+                else if ((item.name).trim().toLowerCase() === "pincode" && location !== undefined) {
+                  return (
+                    <PincodeTextInput
+                      jsonData={item}
+                      key={index}
+                      handleData={handleChildComponentData}
+                      handleFetchPincode={handleFetchPincode}
+                      placeHolder={item.name}
+                      value={location.postcode}
+                      label={item.label}
+                      maxLength={6}
+                    ></PincodeTextInput>
+                  )
+                }
               }
               else if (item.type === "select") {
                 return (

@@ -7,7 +7,7 @@ export const userMappingApi = baseApi.injectEndpoints({
         query: (params) => {
           return {
             method: "POST",
-            url: `/api/tenant/user-mapping/add`,
+            url: `/api/tenant/add`,
             headers: {
               "Content-Type": "application/json",
               Authorization: "Bearer " + params.token,

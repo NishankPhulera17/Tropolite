@@ -123,6 +123,18 @@ const DashboardMenuBox=(props)=>{
         else if(data.toLowerCase() === "customer support" || data.toLowerCase() === "help and support"){
             navigation.navigate('HelpAndSupport')
         }
+        else if(data.toLowerCase() === "scheme" ){
+            navigation.navigate('Scheme')
+        }
+        else if(data.toLowerCase() === "faqs" ){
+            navigation.navigate('FAQ')
+        }
+        else if(data.toLowerCase() === "membership plan" ){
+            navigation.navigate('TierDetails')
+        }
+        else if(data.toLowerCase() === "gift catalogue" ){
+            navigation.navigate('GiftCatalogue')
+        }
         else if(data.toLowerCase() === "report an issue"){
             navigation.navigate('SupportQueries')
         }

@@ -6,7 +6,7 @@ const PoppinsTextMedium = (props) => {
     const content=props.content 
     const style = props.style
     return (
-        <Text style={{...style,fontFamily:'Poppins-medium',textAlign:"center"}}>
+        <Text style={{...style,fontFamily:'Poppins-medium',textAlign:"center",textTransform:'capitalize'}}>
             {content}
         </Text>
     );

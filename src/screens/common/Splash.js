@@ -240,10 +240,10 @@ const Splash = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1,alignItems:'center',justifyContent:'center',backgroundColor:'white' }}>
-      {/* <ImageBackground resizeMode='stretch' style={{ flex: 1, height: '100%', width: '100%', }} source={require('../../../assets/images/tropiliteSplash.png')}> */}
+      <ImageBackground resizeMode='stretch' style={{ flex: 1, height: '100%', width: '100%', }} source={require('../../../assets/images/splashLaunchImages.jpg')}>
 
         {/* <Image  style={{ width: 200, height: 200,  }}  source={require('../../../assets/gif/ozonegif.gif')} /> */}
-        <FastImage
+        {/* <FastImage
         
           style={{ width: 300, height: 300,alignSelf:'center' }}
           source={{
@@ -251,9 +251,9 @@ const Splash = ({ navigation }) => {
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.contain}
-        />
+        /> */}
 
-      {/* </ImageBackground> */}
+      </ImageBackground>
 
     </View>
 

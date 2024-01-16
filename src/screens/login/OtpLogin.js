@@ -98,7 +98,7 @@ const OtpLogin = ({ navigation, route }) => {
   const user_type_id = route.params.userId;
   const user_type = route.params.userType;
   const registrationRequired = route.params.registrationRequired
-  console.log("registrationRequired", registrationRequired)
+  console.log("registrationRequired", registrationRequired,needsApproval,user_type_id,user_type)
   const width = Dimensions.get('window').width;
   const navigationParams = { "needsApproval": needsApproval, "user_type_id": user_type_id, "user_type": user_type, "mobile": mobile, "name": name }
 
@@ -175,7 +175,17 @@ const OtpLogin = ({ navigation, route }) => {
     }
     getTermsAndCondition(params)
   }
+  const handleNavigationToRegister=()=>{
+    if(name!=="" && mobile.length===10)
+    {
+      navigation.navigate('BasicInfo',{needsApproval:needsApproval, userType:user_type, userId:user_type_id,name:name,mobile:mobile,navigatingFrom: "OtpLogin"})
 
+    }
+    else{
+      setError(true)
+      setMessage("Mobile number length should be 10 digits and name field is required")
+    }
+  }
 
   const getName = data => {
     const nameRegex = /^[a-zA-Z\s-]+$/;
@@ -362,7 +372,7 @@ const OtpLogin = ({ navigation, route }) => {
         </View>
         {error && <ErrorModal modalClose={modalClose} message={message} openModal={error}></ErrorModal>}
 
-        {/* {registrationRequired && <View style={{width:"100%",alignItems:'center',justifyContent:"center",marginTop:20}}>
+        {registrationRequired && <View style={{width:"100%",alignItems:'center',justifyContent:"center",marginTop:20}}>
         <PoppinsTextMedium style={{fontSize:18}} content ="Don't have an account ?"></PoppinsTextMedium>
         <ButtonNavigate
               handleOperation={handleNavigationToRegister}
@@ -372,7 +382,7 @@ const OtpLogin = ({ navigation, route }) => {
               >
         </ButtonNavigate>
 
-        </View>} */}
+        </View>}
       </ScrollView>
     </LinearGradient>
   );

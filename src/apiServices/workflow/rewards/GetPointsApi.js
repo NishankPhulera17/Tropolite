@@ -85,7 +85,22 @@ export const GetForms = baseApi.injectEndpoints({
         };
       },
     }),
+    tropolitePointEnteries: builder.mutation({
+      query: params => {
+        console.log('body aisi', params);
+        return {
+          method: 'GET',
+          url: `api/tenant/tropolite/app/${params.app_user_id} `,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + params.token,
+            slug: slug,
+          },
+         
+        };
+      },
+    }),
   }),
 });
 
-export const {useAllUserPointsEntryMutation,useCheckUserPointMutation,useFetchUserPointsHistoryMutation,useFetchUserPointsMutation,useUserPointsEntryMutation,useCashPerPointMutation} = GetForms;
+export const {useAllUserPointsEntryMutation,useCheckUserPointMutation,useFetchUserPointsHistoryMutation,useFetchUserPointsMutation,useUserPointsEntryMutation,useCashPerPointMutation,useTropolitePointEnteriesMutation} = GetForms;
