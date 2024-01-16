@@ -121,22 +121,22 @@ const UserInfoModal = ({membershipData ,isVisible, onClose }) => {
             style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
             content={`Mobile : ${userData.mobile}`}
           ></PoppinsTextMedium>
-          <PoppinsTextMedium
+          {mappingData?.parent[0]?.app_user_name && <PoppinsTextMedium
             style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
             content={`${mappingData?.parent[0]?.user_type} Name : ${mappingData?.parent[0]?.app_user_name}`}
-          ></PoppinsTextMedium>
-          <PoppinsTextMedium
+          ></PoppinsTextMedium>}
+          {mappingData?.parent[0]?.app_user_mobile && <PoppinsTextMedium
             style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
             content={`${mappingData?.parent[0]?.user_type} Mobile : ${mappingData?.parent[0]?.app_user_mobile}`}
-          ></PoppinsTextMedium>
+          ></PoppinsTextMedium>}
           <PoppinsTextMedium
             style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
             content={`Membership Tier : ${membershipData?.tier?.name != undefined  ? membershipData?.tier?.name : ""}`}
           ></PoppinsTextMedium>
-           <PoppinsTextMedium
+          {membershipData!=null && <PoppinsTextMedium
             style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
             content={`Membership Range : ${membershipData?.range_start != undefined  ? membershipData?.range_start : ""} - ${membershipData?.range_end != undefined  ? membershipData?.range_end : ""}`}
-          ></PoppinsTextMedium>
+          ></PoppinsTextMedium>}
            <PoppinsTextMedium
             style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
             content={`Point Multiplier : ${membershipData?.points != undefined  ? membershipData?.points : ""} `}
