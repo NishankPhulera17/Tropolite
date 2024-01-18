@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  canMapUsers:[]
+  canMapUsers:[],
+  userMappingData:{}
   
 }
 
@@ -13,11 +14,14 @@ export const userMappingSlice = createSlice({
     setCanMapUsers: (state, action) => {
         console.log("dispatched location is",action.payload)
       state.canMapUsers = action.payload
-    }
+    },
+    setUserMappingData: (state, action) => {
+    state.userMappingData = action.payload
+  }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setCanMapUsers} = userMappingSlice.actions
+export const { setCanMapUsers,setUserMappingData} = userMappingSlice.actions
 
 export default userMappingSlice.reducer

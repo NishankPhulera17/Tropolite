@@ -42,7 +42,8 @@ import { useVerifyOtpForNormalUseMutation } from '../../apiServices/otp/VerifyOt
 import DropDownRegistration from '../../components/atoms/dropdown/DropDownRegistration';
 import EmailTextInput from '../../components/atoms/input/EmailTextInput';
 import { validatePathConfig } from '@react-navigation/native';
-
+import { gifUri } from '../../utils/GifUrl';
+import FastImage from 'react-native-fast-image';
 
 const BasicInfo = ({ navigation, route }) => {
   const [userName, setUserName] = useState(route.params.name)
@@ -62,7 +63,7 @@ const BasicInfo = ({ navigation, route }) => {
   const [otpModal, setOtpModal] = useState(false)
   const [otpVisible, setOtpVisible] = useState(false)
   const [isValid, setIsValid] = useState(true)
-
+  const [hideButton, setHideButton] = useState(false)
   const [timer, setTimer] = useState(0)
 
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
@@ -93,6 +94,7 @@ const BasicInfo = ({ navigation, route }) => {
   const navigatingFrom = route.params.navigatingFrom
   const name = route.params?.name
   const mobile = route.params?.mobile
+  const registrationRequired = route.params?.registrationRequired
   console.log("appUsers", userType, userTypeId, isManuallyApproved, name, mobile,needsApproval)
   const width = Dimensions.get('window').width
   const height = Dimensions.get('window').height
@@ -314,7 +316,7 @@ const BasicInfo = ({ navigation, route }) => {
         setMessage(registerUserData.message)
         setModalTitle("WOW")
       }
-
+      setHideButton(true)
       // const values = Object.values(registerUserData.body.template)
       // setRegistrationForm(values)
     }
@@ -322,7 +324,7 @@ const BasicInfo = ({ navigation, route }) => {
       console.log("form submission error", registerUserError)
       setError(true)
       setMessage(registerUserError.data.message)
-
+      setHideButton(true)
     }
   }, [registerUserData, registerUserError])
 
@@ -356,8 +358,9 @@ const BasicInfo = ({ navigation, route }) => {
   }, [sendOtpData, sendOtpError])
 
   const handleTimer = () => {
-
-    if(timer===60)
+  if(userMobile && userMobile.length==10)
+    {
+      if(timer===60)
     {
       getOTPfunc()
       setOtpVisible(true)
@@ -368,8 +371,13 @@ const BasicInfo = ({ navigation, route }) => {
       setOtpVisible(true)
 
      
+    }}
+    else{
+      setError(true)
+      setMessage("Kindly enter proper mobile number")
     }
   }
+  
 
 
   const isValidEmail = (text) => {
@@ -499,6 +507,7 @@ const BasicInfo = ({ navigation, route }) => {
       const keys = Object.keys(body)
       const values = Object.values(body)
 
+      if(otpVerified){
       if (keys.includes('email')) {
         const index = keys.indexOf('email')
         if(emailRequired)
@@ -520,6 +529,11 @@ const BasicInfo = ({ navigation, route }) => {
       else {
         registerUserFunc(body)
       }
+    }
+    else{
+      setError(true)
+      setMessage("OTP is not verified yet")
+    }
 
       // make request according to the login type of user-----------------------
 
@@ -566,7 +580,7 @@ const BasicInfo = ({ navigation, route }) => {
           message={message}
           openModal={success}
           navigateTo={navigatingFrom === "PasswordLogin" ? "PasswordLogin" : "OtpLogin"}
-          params={{ needsApproval: needsApproval, userType: userType, userId: userTypeId }}></MessageModal>
+          params={{ needsApproval: needsApproval, userType: userType, userId: userTypeId,registrationRequired:registrationRequired }}></MessageModal>
       )}
 
       {otpModal && (
@@ -599,7 +613,8 @@ const BasicInfo = ({ navigation, route }) => {
             left: 10
           }}
           onPress={() => {
-            navigation.goBack();
+            navigation.goBack()
+
           }}>
           <Image
             style={{
@@ -621,9 +636,9 @@ const BasicInfo = ({ navigation, route }) => {
             }}></PoppinsTextMedium>
         </View>
       </View>
-      <ScrollView style={{ width: '100%' }}>
+      <ScrollView style={{ width: '100%',height:'100%',backgroundColor:'white' }}>
 
-        <View style={{ width: width, backgroundColor: "white", alignItems: "center", justifyContent: 'flex-start', paddingTop: 20 }}>
+        <View style={{ width: width, backgroundColor: "white", alignItems: "center", justifyContent: 'flex-start', paddingTop: 20,height:'100%' }}>
           {formFound ? <PoppinsTextMedium style={{ color: 'black', fontWeight: '700', fontSize: 18, marginBottom: 40 }} content="Please Fill The Following Form To Register"></PoppinsTextMedium> : <PoppinsTextMedium style={{ color: 'black', fontWeight: '700', fontSize: 18, marginBottom: 40 }} content="No Form Available !!"></PoppinsTextMedium>}
 
           {/* <RegistrationProgress data={["Basic Info","Business Info","Manage Address","Other Info"]}></RegistrationProgress> */}
@@ -639,15 +654,15 @@ const BasicInfo = ({ navigation, route }) => {
                       <View style={{ flexDirection: 'row', flex: 1 }}>
 
                         <View style={{ flex: 0.75 }}>
-                          {navigatingFrom === "OtpLogin" && <TextInputNumericRectangle
+                          {navigatingFrom == "OtpLogin" && <TextInputNumericRectangle
                             jsonData={item}
                             key={index}
                             maxLength={10}
                             handleData={handleChildComponentData}
                             placeHolder={item.name}
-                            value={userMobile}
                             label={item.label}
-                            isEditable={false}
+                            required={item.required}
+                           
                           >
                             {' '}
                           </TextInputNumericRectangle>}
@@ -658,6 +673,7 @@ const BasicInfo = ({ navigation, route }) => {
                             handleData={handleChildComponentData}
                             placeHolder={item.name}
                             label={item.label}
+                            required={item.required}
 
                           >
                             {' '}
@@ -715,15 +731,25 @@ const BasicInfo = ({ navigation, route }) => {
 
                 else if ((item.name).trim().toLowerCase() === "name") {
                   return (
-                    <PrefilledTextInput
+                    // <PrefilledTextInput
+                    //   jsonData={item}
+                    //   key={index}
+                    //   handleData={handleChildComponentData}
+                    //   placeHolder={item.name}
+                    //   value={userName}
+                    //   label={item.label}
+                    //   isEditable={false}
+                    // ></PrefilledTextInput>
+                    <TextInputRectangle
                       jsonData={item}
                       key={index}
+                      value={userName}
                       handleData={handleChildComponentData}
                       placeHolder={item.name}
-                      value={userName}
-                      label={item.label}
-                      isEditable={false}
-                    ></PrefilledTextInput>
+                      required={item.required}
+                      label={item.label}>
+                      {' '}
+                    </TextInputRectangle>
                   )
                 }
 
@@ -778,6 +804,7 @@ const BasicInfo = ({ navigation, route }) => {
                   return (
                     <TextInputGST
                       jsonData={item}
+                      required={item.required}
                       key={index}
                       handleData={handleChildComponentData}
                       placeHolder={item.name}
@@ -790,6 +817,7 @@ const BasicInfo = ({ navigation, route }) => {
 
                   return (
                     <PrefilledTextInput
+                    required={item.required}
                       jsonData={item}
                       key={index}
                       handleData={handleChildComponentData}
@@ -805,6 +833,8 @@ const BasicInfo = ({ navigation, route }) => {
                 else if ((item.name).trim().toLowerCase() === "pincode" && location !== undefined) {
                   return (
                     <PincodeTextInput
+                    required={item.required}
+
                       jsonData={item}
                       key={index}
                       handleData={handleChildComponentData}
@@ -824,6 +854,7 @@ const BasicInfo = ({ navigation, route }) => {
                       handleData={handleChildComponentData}
                       placeHolder={item.name}
                       value={location.state}
+                      required={item.required}
                       label={item.label}
                     ></PrefilledTextInput>
                   )
@@ -838,6 +869,7 @@ const BasicInfo = ({ navigation, route }) => {
                       placeHolder={item.name}
                       value={location.district}
                       label={item.label}
+                      required={item.required}
                     ></PrefilledTextInput>
                   )
 
@@ -848,6 +880,7 @@ const BasicInfo = ({ navigation, route }) => {
                   return (
                     <TextInputRectangle
                       jsonData={item}
+                      required={item.required}
                       key={index}
                       handleData={handleChildComponentData}
                       placeHolder={item.name}
@@ -883,9 +916,9 @@ const BasicInfo = ({ navigation, route }) => {
                             maxLength={10}
                             handleData={handleChildComponentData}
                             placeHolder={item.name}
-                            value={userMobile}
                             label={item.label}
-                            isEditable={false}
+                            isEditable={true}
+                      required={item.required}
                           >
                             {' '}
                           </TextInputNumericRectangle>}
@@ -896,7 +929,7 @@ const BasicInfo = ({ navigation, route }) => {
                             handleData={handleChildComponentData}
                             placeHolder={item.name}
                             label={item.label}
-
+                            required={item.required}
                           >
                             {' '}
                           </TextInputNumericRectangle>}
@@ -905,7 +938,7 @@ const BasicInfo = ({ navigation, route }) => {
                         {otpVerified ? <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                           <Image style={{ height: 30, width: 30, resizeMode: 'contain' }} source={require('../../../assets/images/greenTick.png')}></Image>
                         </View> : <TouchableOpacity style={{ flex: 0.15, marginTop: 6, backgroundColor: ternaryThemeColor, alignItems: 'center', justifyContent: 'center', height: 50, borderRadius: 5 }} onPress={()=>{
-                          handleTimer()
+                            handleTimer()
                         }}>
                           <PoppinsTextLeftMedium style={{ color: 'white', fontWeight: '800', padding: 5 }} content="Get OTP"></PoppinsTextLeftMedium>
                         </TouchableOpacity>}
@@ -987,7 +1020,7 @@ const BasicInfo = ({ navigation, route }) => {
               }
             })}
 
-          {formFound && <ButtonOval
+          {formFound && registrationForm.length!=0 && !hideButton && <ButtonOval
             handleOperation={() => {
               handleRegistrationFormSubmission();
             }}
@@ -999,6 +1032,16 @@ const BasicInfo = ({ navigation, route }) => {
               color: 'white',
               fontSize: 16,
             }}></ButtonOval>}
+
+            {getFormIsLoading && <FastImage
+           style={{ width: 180, height: 180, alignSelf: 'center', marginTop: '30%' }}
+           source={{
+             uri: gifUri, // Update the path to your GIF
+             priority: FastImage.priority.normal,
+           }}
+           resizeMode={FastImage.resizeMode.contain}
+         />}
+            
         </View>
       </ScrollView>
 

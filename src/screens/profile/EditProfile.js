@@ -39,6 +39,7 @@ const EditProfile = ({ navigation, route }) => {
   )
     ? useSelector(state => state.apptheme.ternaryThemeColor)
     : 'grey';
+  const userMappingData = useSelector(state=>state.userMapping.userMappingData)
   const formFields = route.params?.formFields
   const formValues = route.params?.formValues
   const height = Dimensions.get('window').height
@@ -331,6 +332,23 @@ const EditProfile = ({ navigation, route }) => {
                 )
               }
             })
+          }
+          {userMappingData && 
+          <>
+          <DisplayOnlyTextInput
+         
+         data={userMappingData.parent[0].app_user_name}
+         title={"Distributor Name"}
+         photo={require('../../../assets/images/eye.png')}>
+
+       </DisplayOnlyTextInput>
+       <DisplayOnlyTextInput
+        
+       data={userMappingData.parent[0].app_user_mobile}
+       title={"Distributor Mobile"}
+       photo={require('../../../assets/images/eye.png')}>
+
+     </DisplayOnlyTextInput></>
           }
         </ScrollView>
 

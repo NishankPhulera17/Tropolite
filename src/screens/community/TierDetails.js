@@ -56,6 +56,21 @@ const TierDetails = ({navigation}) => {
         }
     }, [getMembershipData, getMembershipError])
 
+    function formatPurchaseValue(value) {
+        const suffixes = ['', 'K', 'L', 'Cr']; // Thousand, Lakh, Crore
+      
+        let formattedValue = value.toString();
+      
+        for (let i = suffixes.length - 1; i > 0; i--) {
+          const divisor = Math.pow(10, i * 2 + 1); // Adjusted to Indian numbering system
+          if (value >= divisor) {
+            formattedValue = (value / divisor).toFixed(2) + suffixes[i];
+            break;
+          }
+        }
+      
+        return formattedValue;
+      }
 
     return (
         <>
@@ -94,7 +109,7 @@ const TierDetails = ({navigation}) => {
                                 <View style={styles.modalContent}>
 
                                     <View style={styles.modalTop}>
-                                        <LinearGradient colors={itm.id == 1 ? ["#6b0ce4", "#9B56FE"] : itm.id == 2 ? ["#545E6C", "#9BA2AE"] : itm.id == 3 ? ["#BF133D", "#FB7185"] : itm.id == 4 ? ["#C3420D", "#FA913B"] : ["#6b0ce4", "#9B56FE"]} style={{ height: '100%', width: '100%', borderTopRightRadius: 40, borderTopLeftRadius: 40 }}>
+                                        <LinearGradient colors={itm.tier.rank === 1 ? ["#B69482", "#D9BBAE"] : itm.tier.rank  === 2 ? ["#F2BD27", "#F28B27"] : itm.tier.rank  === 3 ? ["#AFAFAF", "#E2E2E2"] : itm.tier.rank  === 4 ? ["#C3420D", "#FA913B"] : ["#6b0ce4", "#9B56FE"]} style={{ height: '100%', width: '100%', borderTopRightRadius: 40, borderTopLeftRadius: 40 }}>
                                             <View style={{ alignItems: 'center', marginTop: 30 }}>
                                                 <PoppinsTextMedium style={{ fontSize: 22, fontWeight: '600', color: '#ffffff', fontWeight: 'bold', marginBottom: 20 }} content={itm?.tier?.name}></PoppinsTextMedium>
 
@@ -115,20 +130,20 @@ const TierDetails = ({navigation}) => {
                                             <View style={styles.flexRow}>
                                                 <PoppinsTextMedium
                                                     style={{ color: '#000000', fontSize: 18, fontWeight: '700' }}
-                                                    content={"Scan Value"}></PoppinsTextMedium>
+                                                    content={"Points Slab"}></PoppinsTextMedium>
 
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <PoppinsTextMedium
                                                         style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
-                                                        content={itm.range_start + "-"}></PoppinsTextMedium>
+                                                        content={formatPurchaseValue(itm.range_start) + "-"}></PoppinsTextMedium>
                                                     <PoppinsTextMedium
                                                         style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
-                                                        content={itm.range_end}></PoppinsTextMedium>
+                                                        content={formatPurchaseValue(itm.range_end)}></PoppinsTextMedium>
                                                 </View>
                                             </View>
 
-                                            <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View>
-                                            <View style={styles.flexRow}>
+                                            {/* <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View> */}
+                                            {/* <View style={styles.flexRow}>
                                                 <PoppinsTextMedium
                                                     style={{ color: '#000000', fontSize: 18, fontWeight: '700' }}
                                                     content={"Scan/ Month"}></PoppinsTextMedium>
@@ -139,26 +154,26 @@ const TierDetails = ({navigation}) => {
                                         content={itm.per_month}></PoppinsTextMedium>
                                 </View>
 
-                                            </View>
+                                            </View> */}
 
                                             <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View>
 
                                             <View style={styles.flexRow}>
                                                 <PoppinsTextMedium
                                                     style={{ color: '#000000', fontSize: 18, fontWeight: '700' }}
-                                                    content={"Points Multiplier %"}></PoppinsTextMedium>
+                                                    content={"Per Points Value "}></PoppinsTextMedium>
 
                                                 <View style={{ flexDirection: 'row' }}>
                                                     <PoppinsTextMedium
                                         style={{ color: '#000000', fontSize: 16, fontWeight: '600' }}
-                                        content={itm.points}></PoppinsTextMedium>
+                                        content={`1.${Math.floor(Number(itm.points))}`}></PoppinsTextMedium>
                                                 </View>
 
                                             </View>
 
-                                            <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View>
+                                            {/* <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View> */}
 
-                                            <View style={styles.flexRow}>
+                                            {/* <View style={styles.flexRow}>
                                                 <PoppinsTextMedium
                                                     style={{ color: '#000000', fontSize: 18, fontWeight: '700' }}
                                                     content={"Gift Discount %"}></PoppinsTextMedium>
@@ -169,11 +184,11 @@ const TierDetails = ({navigation}) => {
                                         content ={itm.gift_discount}></PoppinsTextMedium>
                                 </View>
 
-                                            </View>
+                                            </View> */}
 
-                                            <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View>
+                                            {/* <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View> */}
 
-                                            <View style={styles.flexRow}>
+                                            {/* <View style={styles.flexRow}>
                                                 <PoppinsTextMedium
                                                     style={{ color: '#000000', fontSize: 18, fontWeight: '700' }}
                                                     content={"Cashback Option"}></PoppinsTextMedium>
@@ -184,7 +199,7 @@ const TierDetails = ({navigation}) => {
                                         content={itm.cashback == true ? "Yes" : "No"}></PoppinsTextMedium>
                                 </View>
 
-                                            </View>
+                                            </View> */}
 
                                             <View style={{ borderWidth: 0.3, borderColor: "#808080", marginTop: 20, }}></View>
 

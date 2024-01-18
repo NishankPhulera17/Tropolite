@@ -69,7 +69,7 @@ const TextInputNumericRectangle = props => {
           marginLeft: 20,
           color:'black',fontSize:16
         }}
-        editable = {isEditable ===false ? isEditable : true }
+        editable = {isEditable}
         placeholderTextColor="grey"
         onChangeText={text => {
           handleInput(text);

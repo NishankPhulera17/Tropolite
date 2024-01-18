@@ -176,15 +176,10 @@ const OtpLogin = ({ navigation, route }) => {
     getTermsAndCondition(params)
   }
   const handleNavigationToRegister=()=>{
-    if(name!=="" && mobile.length===10)
-    {
-      navigation.navigate('BasicInfo',{needsApproval:needsApproval, userType:user_type, userId:user_type_id,name:name,mobile:mobile,navigatingFrom: "OtpLogin"})
+   
+      navigation.navigate('BasicInfo',{needsApproval:needsApproval, userType:user_type, userId:user_type_id,name:name,mobile:mobile,navigatingFrom: "OtpLogin",registrationRequired:registrationRequired})
 
-    }
-    else{
-      setError(true)
-      setMessage("Mobile number length should be 10 digits and name field is required")
-    }
+    
   }
 
   const getName = data => {
@@ -221,8 +216,9 @@ const OtpLogin = ({ navigation, route }) => {
       if (getNameData.message === "Not Found") {
         console.log("registrationRequired", registrationRequired)
         if (mobile?.length == 10) {
-          registrationRequired ? navigation.navigate('BasicInfo', { needsApproval: needsApproval, userType: user_type, userId: user_type_id, name: name, mobile: mobile, navigatingFrom: "OtpLogin" }) : navigateToOtp()
-
+          // registrationRequired ? navigation.navigate('BasicInfo', { needsApproval: needsApproval, userType: user_type, userId: user_type_id, name: name, mobile: mobile, navigatingFrom: "OtpLogin" }) : navigateToOtp()
+          setError(true)
+          setMessage("Seems like you do not have an account with us, kindly register")
         }
         else {
           setError(true)

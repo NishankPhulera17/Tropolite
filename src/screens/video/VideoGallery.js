@@ -155,7 +155,7 @@ const VideoGallery = ({ navigation }) => {
             videoData != undefined && videoData.length > 0 && videoData.map((item, index) => {
               return (
                 <View >
-                  <VideoComp key={index} title={item.title} type={item.type} video={item.link} date={item.updated_at}></VideoComp> 
+                  <VideoComp key={item.id} title={item.title} type={item.type} video={item.link} date={item.updated_at}></VideoComp> 
                 </View>
               )
             })
@@ -164,7 +164,7 @@ const VideoGallery = ({ navigation }) => {
             
           }
           {
-            videoData.length===0 && <DataNotFound></DataNotFound>
+            !appVideoIsLoading && appVideoData && videoData && videoData.length!==0 && <DataNotFound></DataNotFound>
           }
 
 

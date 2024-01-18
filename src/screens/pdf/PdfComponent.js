@@ -1,14 +1,21 @@
-import React from 'react';
-import { StyleSheet, Dimensions, View } from 'react-native';
+import React,{useEffect} from 'react';
+import { StyleSheet, Dimensions, View,BackHandler } from 'react-native';
 import Pdf from 'react-native-pdf';
 import { BaseUrlImages } from '../../utils/BaseUrlImages';
+import { Text } from 'react-native-svg';
 
-const PdfComponent = ({route}) => {
+const PdfComponent = ({route,navigation}) => {
     const pdf = route.params.pdf
     const pdfLink = BaseUrlImages+pdf
     const source = { uri: pdfLink, cache: true };
+    useEffect(() => {
+        return () => {
+          BackHandler.removeEventListener("hardwareBackPress", ()=>{navigation.goBack()});
+        };
+      }, [])
     return (
         <View style={styles.container}>
+           
                 <Pdf
                 trustAllCerts={false}
                     source={source}
@@ -35,6 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         marginTop: 25,
+        
     },
     pdf: {
         flex:1,

@@ -30,6 +30,8 @@ export default function Scheme({navigation}) {
   )
     ? useSelector(state => state.apptheme.ternaryThemeColor)
     : 'grey';
+  const userData = useSelector((state) => state.appusersdata.userData);
+  
   const height = Dimensions.get('window').height;
   const [
     checkActiveSchemeFunc,
@@ -90,16 +92,19 @@ useEffect(()=>{
   const SchemeComponent = props => {
     const image = props.image;
     const name = props.name;
-    const worth = props.worth;
-    const coin = props.coin;
+    const pdf = props.pdf
     return (
-      <View
+      <TouchableOpacity
+      onPress={()=>{
+        navigation.navigate('PdfComponent', { pdf: pdf })
+
+      }}
         style={{
-          width: '44%',
+          width: '90%',
           borderWidth: 0.2,
           borderColor: '#DDDDDD',
           elevation: 6,
-          height: 200,
+          height: 300,
           backgroundColor: 'white',
           borderRadius: 4,
           margin:10,alignItems:"center",justifyContent:"center"
@@ -107,7 +112,7 @@ useEffect(()=>{
         <View
           style={{
             width: '90%',
-            height: '50%',
+            height: '70%',
             borderBottomWidth: 1,
             borderColor: '#DDDDDD',
           }}>
@@ -117,22 +122,18 @@ useEffect(()=>{
         </View>
         <View
           style={{
-            width: '90%',
-            height: '50%',
+            width: '100%',
+            height: '30%',
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor:ternaryThemeColor
           }}>
           <PoppinsTextMedium
-            style={{color: 'black', fontSize: 14,fontWeight:"700"}}
+            style={{color: 'white', fontSize: 14,fontWeight:"800"}}
             content={name}></PoppinsTextMedium>
-          <PoppinsTextMedium
-            style={{color: 'grey', fontSize: 14,fontWeight:"700"}}
-            content={`Worth Rs : ${worth} INR`}></PoppinsTextMedium>
-          <PoppinsTextMedium
-            style={{color: 'black', fontSize: 14,fontWeight:"700"}}
-            content={`Coin : ${coin}`}></PoppinsTextMedium>
+          
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -213,7 +214,7 @@ useEffect(()=>{
             source={require('../../../assets/images/blackBack.png')}></Image>
         </TouchableOpacity>
         <PoppinsTextMedium
-          content="Scheme"
+          content="Scheme Info"
           style={{
             marginLeft: 10,
             fontSize: 16,
@@ -234,25 +235,7 @@ useEffect(()=>{
           width: '100%',
           paddingBottom: 40,
         }}>
-           <View style={{height:100,width:'100%',alignItems:'center',justifyContent:'center'}}>
-           <ScrollView
-           contentContainerStyle={{alignItems:'center',justifyContent:'center',marginLeft:20}}
-        horizontal={true}
-          style={{
-            width:'100%',
-            
-          }}>
-            {
-                categories && categories.map((item,index)=>{
-                    return(
-          <FilterComp selected={selected} handlePress={handlePress} key={index} title={item}></FilterComp>
-
-                    )
-
-                })
-            }
-        </ScrollView>
-           </View>
+         
        
            <ScrollView style={{width:'100%',height:'100%'}}>
         <View
@@ -267,14 +250,14 @@ useEffect(()=>{
            
 
             
-            {
-                gifts && gifts.map((item,index)=>{
-                    return(
-          <SchemeComponent key={index} name={item.name} worth={item.value} coin={item.points} image={item.images[0]}></SchemeComponent>
-                    )
-                })
-            }
-            {
+            
+          {scheme &&  <SchemeComponent  name={scheme.scheme_name} image = {scheme?.scheme_images && scheme?.scheme_images.length > 0 ? scheme?.scheme_images[0] : ""} pdf ={scheme.scheme_pdf} ></SchemeComponent>}
+                   
+            
+            
+        </View>
+        </ScrollView>
+        {
               checkActiveSchemeIsLoading && <FastImage
               style={{ width: 100, height: 100, alignSelf: 'center',justifyContent:'center', marginTop: '50%' }}
               source={{
@@ -285,10 +268,8 @@ useEffect(()=>{
           />
             }
             {
-              gifts.length==0 && <DataNotFound></DataNotFound>
+              checkActiveSchemeData  && scheme.length==0 && !checkActiveSchemeIsLoading && <DataNotFound></DataNotFound>
             }
-        </View>
-        </ScrollView>
       </View>
     </View>
   );

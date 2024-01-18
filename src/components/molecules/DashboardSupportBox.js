@@ -15,13 +15,13 @@ const handleNavigation=()=>{
     if(text==="Feedback"){
         navigation.navigate('Feedback')
     }
+    else if(text ==="Refer and earn")
+    {
+        navigation.navigate('ReferAndEarn')
+    }
     else if(text ==="Rewards")
     {
         navigation.navigate('RedeemRewardHistory')
-    }
-    else if(text ==="Customer support")
-    {
-        navigation.navigate('HelpAndSupport')
     }
 }
 

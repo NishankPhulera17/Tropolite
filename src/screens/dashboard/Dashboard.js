@@ -37,6 +37,7 @@ import ScannedDetailsBox from '../../components/organisms/ScannedDetailsBox';
 import moment from 'moment';
 import UserInfoModal from '../../components/modals/UserInfoModal';
 import { setMembershipData,setActiveMembershipData } from '../../../redux/slices/membershipSlice';
+import { useFetchLegalsMutation } from '../../apiServices/fetchLegal/FetchLegalApi';
 
 const Dashboard = ({ navigation }) => {
   const [dashboardItems, setDashboardItems] = useState()
@@ -46,7 +47,7 @@ const Dashboard = ({ navigation }) => {
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false)
   const [membership, setMembership] = useState()
   const [scanningDetails, seScanningDetails] = useState()
-
+  const [privacyPolicy, setPrivacyPolicy] = useState()
   const focused = useIsFocused()
   const dispatch = useDispatch()
   const userId = useSelector((state) => state.appusersdata.userId)
@@ -125,6 +126,13 @@ const Dashboard = ({ navigation }) => {
     isError: getFormIsError
   }] = useGetFormMutation()
 
+  const [getTermsAndCondition, {
+    data: getTermsData,
+    error: getTermsError,
+    isLoading: termsLoading,
+    isError: termsIsError
+  }] = useFetchLegalsMutation()
+
   const [extraPointEntriesFunc, {
     data: extraPointEntriesData,
     error: extraPointEntriesError,
@@ -143,11 +151,16 @@ const Dashboard = ({ navigation }) => {
     userPointFunc(params)
 
   }
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-    return () => backHandler.remove()
-  }, [])
- 
+  const handleBackButton=()=>{
+    navigation.navigate('Dashboard')
+  }
+  // useEffect(() => {
+  //   BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+  //   return () => {
+  //     BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+  //   };
+  // }, [focused])
+
   useEffect(() => {
     fetchPoints()
     dispatch(setQrIdList([]))
@@ -176,6 +189,7 @@ const Dashboard = ({ navigation }) => {
         query_params: queryParams,
       });
     })();
+    fetchTerms()
   }, []);
   useEffect(() => {
     if (extraPointEntriesData) {
@@ -210,7 +224,7 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
       console.log("getActiveMembershipData", JSON.stringify(getActiveMembershipData))
       if(getActiveMembershipData.success)
       {
-       
+       dispatch(setMembershipData(getActiveMembershipData.body))
         setMembership(getActiveMembershipData.body?.tier.name)
       }
     }
@@ -321,6 +335,18 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
     })
 
   }, [])
+  useEffect(() => {
+    if (getTermsData) {
+      console.log("getTermsData", JSON.stringify(getTermsData.body),getTermsData?.body?.data[0].files[0]);
+      if(getTermsData.body)
+      {
+      setPrivacyPolicy(getTermsData?.body?.data[0].files[0])
+      }
+    }
+    else if (getTermsError) {
+      console.log("gettermserror", getTermsError)
+    }
+  }, [getTermsData, getTermsError])
   useEffect(() => {
     const keys = Object.keys(pointSharingData.point_sharing_bw_user.user)
     const values = Object.values(pointSharingData.point_sharing_bw_user.user)
@@ -441,7 +467,14 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
     console.log("hello")
   };
 
-  
+  const fetchTerms = async () => {
+    const credentials = await Keychain.getGenericPassword();
+    const token = credentials.username;
+    const params = {
+      type: "privacy-policy"
+    }
+    getTermsAndCondition(params)
+  }
 
   return (
     <View style={{ alignItems: "center", justifyContent: "center", backgroundColor: "#F7F9FA", flex: 1, height: '100%' }}>
@@ -504,26 +537,26 @@ console.log("fetchAllQrScanedListError",fetchAllQrScanedListError)
             </View>
 
           </View>
-         {scanningDetails &&  <ScannedDetailsBox lastScannedDate={moment(scanningDetails.data.scanned_at).format("DD MMM YYYY")} scanCount={scanningDetails.total}></ScannedDetailsBox>}
+         {scanningDetails &&  !userPointIsLoading && <ScannedDetailsBox lastScannedDate={moment(scanningDetails.data.scanned_at).format("DD MMM YYYY")} scanCount={scanningDetails.total}></ScannedDetailsBox>}
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 4 }}>
             {/* <DashboardDataBox header="Total Points"  data="5000" image={require('../../../assets/images/coin.png')} ></DashboardDataBox>
           <DashboardDataBox header="Total Points"  data="5000" image={require('../../../assets/images/coin.png')} ></DashboardDataBox> */}
 
           </ScrollView>
-          {dashboardItems && <DashboardMenuBox navigation={navigation} data={dashboardItems}></DashboardMenuBox>}
+          {dashboardItems && !getActiveMembershipIsLoading && !getFormIsLoading &&  !userPointIsLoading && <DashboardMenuBox navigation={navigation} data={dashboardItems} privacyPolicy={privacyPolicy}></DashboardMenuBox>}
           <View style={{ width: '100%', alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
             {showKyc && <KYCVerificationComponent buttonTitle="Complete Your KYC" title="Your KYC is not completed"></KYCVerificationComponent>}
           </View>
           {(userData.user_type).toLowerCase()!=="dealer" && (userData.user_type).toLowerCase()!=="sales" &&<View style={{ flexDirection: "row", width: '100%', alignItems: "center", justifyContent: "center",marginBottom:20 }}>
             <DashboardSupportBox text="Rewards" backgroundColor="#D9C7B6" borderColor="#FEE8D4" image={require('../../../assets/images/info.png')} ></DashboardSupportBox>
-            <DashboardSupportBox text="Customer support" backgroundColor="#BCB5DC" borderColor="#E4E0FC" image={require('../../../assets/images/support.png')} ></DashboardSupportBox>
+            <DashboardSupportBox text="Refer and earn" backgroundColor="#BCB5DC" borderColor="#E4E0FC" image={require('../../../assets/images/support.png')} ></DashboardSupportBox>
             <DashboardSupportBox text="Feedback" backgroundColor="#D8C8C8" borderColor="#FDDADA" image={require('../../../assets/images/feedback.png')} ></DashboardSupportBox>
 
           </View>}
         </View>
       </ScrollView>
        {
-        getActiveMembershipIsLoading && getFormIsLoading && getWorkflowIsLoading && getBannerIsLoading && getDashboardIsLoading && fetchAllQrScanedListIsLoading && getKycStatusIsLoading && userPointIsLoading && <FastImage
+        userPointIsLoading && <FastImage
           style={{ width: 100, height: 100, alignSelf: 'center', marginTop: '50%' }}
           source={{
             uri: gifUri, // Update the path to your GIF

@@ -43,6 +43,7 @@ const Profile = ({ navigation }) => {
     ? useSelector(state => state.apptheme.ternaryThemeColor)
     : 'grey';
   const userData = useSelector(state => state.appusersdata.userData)
+  const userMappingData = useSelector(state=>state.userMapping.userMappingData)
 
   const focused = useIsFocused()
   const [
@@ -488,7 +489,23 @@ const Profile = ({ navigation }) => {
                 }
 
               })}
+            {userMappingData && 
+          <>
+          <DisplayOnlyTextInput
+         
+         data={userMappingData.parent[0].app_user_name}
+         title={"Distributor Name"}
+         photo={require('../../../assets/images/eye.png')}>
 
+       </DisplayOnlyTextInput>
+       <DisplayOnlyTextInput
+        
+       data={userMappingData.parent[0].app_user_mobile}
+       title={"Distributor Mobile"}
+       photo={require('../../../assets/images/eye.png')}>
+
+     </DisplayOnlyTextInput></>
+          }
 
           </View>
           <View style={{ width: '100%', backgroundColor: "white", alignItems: "center", justifyContent: 'center' }}>

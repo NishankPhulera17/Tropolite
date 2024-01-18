@@ -45,14 +45,6 @@ const ReferAndEarn = ({ navigation }) => {
 
   const focused = useIsFocused()
 
-  useEffect(() => {
-    if (fetchProfileData) {
-      console.log('fetchProfileData', fetchProfileData.body);
-    } else if (fetchProfileError) {
-      console.log('fetchProfileError', fetchProfileError);
-    }
-  }, [fetchProfileData, fetchProfileError]);
-
   const [
     fetchProfileFunc,
     {
@@ -62,6 +54,16 @@ const ReferAndEarn = ({ navigation }) => {
       isError: fetchProfileIsError,
     },
   ] = useFetchProfileMutation();
+  
+  useEffect(() => {
+    if (fetchProfileData) {
+      console.log('fetchProfileData', fetchProfileData.body);
+    } else if (fetchProfileError) {
+      console.log('fetchProfileError', fetchProfileError);
+    }
+  }, [fetchProfileData, fetchProfileError]);
+
+  
   useEffect(() => {
     const fetchData = async () => {
       const credentials = await Keychain.getGenericPassword();
@@ -80,7 +82,7 @@ const ReferAndEarn = ({ navigation }) => {
 
   }, []);
   const height = Dimensions.get('window').height;
-  const rewardAmount = 50;
+  const rewardAmount = 250;
   const referalCode = fetchProfileData ? fetchProfileData.body.referral_code : "N/A";
   const modalInvitationClose = () => {
     setOpenBottomInvitationModal(false);
@@ -308,7 +310,8 @@ const ReferAndEarn = ({ navigation }) => {
           </View>
           <PoppinsTextMedium
             style={{ color: '#525252', fontSize: 15, width: '80%', marginTop: 20 }}
-            content="Share this link with your friend and after they install, both of you will get 50 points rewards."></PoppinsTextMedium>
+            content="Share this link with your friend and after they install, you will get 250 points rewards.">
+            </PoppinsTextMedium>
           <TouchableOpacity
             style={{
               padding: 10,

@@ -17,6 +17,10 @@ const TextInputRectangle = (props) => {
   const handleInput = (text) => {
     setValue(text);
   };
+  // useEffect(()=>{
+  //   setValue(props.value)
+  //   handleInputEnd()
+  // },[props.value])
   const handleInputEnd = () => {
     let tempJsonData = { ...props.jsonData, value: value };
     console.log(tempJsonData);

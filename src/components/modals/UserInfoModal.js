@@ -22,13 +22,15 @@ import Close from "react-native-vector-icons/Ionicons";
 import { useSelector } from "react-redux";
 import { gifUri } from '../../utils/GifUrl';
 import FastImage from "react-native-fast-image";
-
+import { setUserMappingData } from "../../../redux/slices/userMappingSlice";
+import { useDispatch } from "react-redux";
 // create a component
 const UserInfoModal = ({membershipData ,isVisible, onClose }) => {
   const [mappingData, setMappingData] = useState();
   const [hide, setHide] = useState(true);
   const userData = useSelector((state) => state.appusersdata.userData);
- console.log("membershipdata",membershipData)
+  const dispatch = useDispatch()
+ console.log("membershipdata",membershipData,userData)
   const ternaryThemeColor = useSelector(
     (state) => state.apptheme.ternaryThemeColor
   )
@@ -68,6 +70,7 @@ const UserInfoModal = ({membershipData ,isVisible, onClose }) => {
   useEffect(() => {
     if (listAddedUserData) {
       console.log("listAddedUserData", JSON.stringify(listAddedUserData));
+      dispatch(setUserMappingData(listAddedUserData?.body))
       setMappingData(listAddedUserData?.body);
     } else if (listAddedUserError) {
       console.log("listAddedUserError", listAddedUserError);
@@ -114,40 +117,39 @@ const UserInfoModal = ({membershipData ,isVisible, onClose }) => {
           </View>}
         
          <PoppinsTextMedium
-            style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
+            style={{ fontWeight: "800", color: "grey", fontSize: 16, margin:4 }}
             content={`Name : ${userData.name}`}
           ></PoppinsTextMedium>
           <PoppinsTextMedium
-            style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
+            style={{ fontWeight: "800", color: "grey", fontSize: 16, margin:4 }}
             content={`Mobile : ${userData.mobile}`}
           ></PoppinsTextMedium>
           {mappingData?.parent[0]?.app_user_name && <PoppinsTextMedium
-            style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
+            style={{ fontWeight: "800", color: "grey", fontSize: 16, margin:4 ,textTransform:'capitalize'}}
             content={`${mappingData?.parent[0]?.user_type} Name : ${mappingData?.parent[0]?.app_user_name}`}
           ></PoppinsTextMedium>}
           {mappingData?.parent[0]?.app_user_mobile && <PoppinsTextMedium
-            style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
+            style={{ fontWeight: "800", color: "grey", fontSize: 16, margin:4,textTransform:'capitalize' }}
             content={`${mappingData?.parent[0]?.user_type} Mobile : ${mappingData?.parent[0]?.app_user_mobile}`}
           ></PoppinsTextMedium>}
+          {mappingData?.parent[0]?.app_user_mobile && <PoppinsTextMedium
+            style={{ fontWeight: "800", color: "grey", fontSize: 16, margin:4,textTransform:'capitalize' }}
+            content={`${mappingData?.parent[0]?.user_type} Code : ${mappingData?.parent[0]?.mapped_user_code}`}
+          ></PoppinsTextMedium>}
           <PoppinsTextMedium
-            style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
+            style={{ fontWeight: "800", color: "grey", fontSize: 16, margin:4 }}
             content={`Membership Tier : ${membershipData?.tier?.name != undefined  ? membershipData?.tier?.name : ""}`}
           ></PoppinsTextMedium>
-          {membershipData!=null && <PoppinsTextMedium
-            style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
-            content={`Membership Range : ${membershipData?.range_start != undefined  ? membershipData?.range_start : ""} - ${membershipData?.range_end != undefined  ? membershipData?.range_end : ""}`}
-          ></PoppinsTextMedium>}
-           <PoppinsTextMedium
-            style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:4 }}
-            content={`Point Multiplier : ${membershipData?.points != undefined  ? membershipData?.points : ""} `}
+         
+          <PoppinsTextMedium
+            style={{ fontWeight: "800", color: "grey", fontSize: 16, margin:4 }}
+            content={`Tier Expiry : ${membershipData?.end_date != undefined  ? membershipData?.end_date : ""} `}
           ></PoppinsTextMedium>
           {/* <PoppinsTextMedium
             style={{ fontWeight: "800", color: "Grey", fontSize: 16, margin:2 }}
             content={`${mappingData?.parent[0].user_type} Mobile : ${mappingData?.parent[0].app_user_mobile}`}
           ></PoppinsTextMedium> */}
          </View>
-
-          
 
           <TouchableOpacity
             style={[

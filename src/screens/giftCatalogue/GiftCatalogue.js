@@ -310,14 +310,14 @@ export default function GiftCatalogue({ navigation }) {
           </ScrollView>
         </View>
 
-        <ScrollView style={{ width: "100%", height: "100%" }}>
+        <ScrollView contentContainerStyle={{ alignItems:'center',justifyContent:'center'}} style={{ width: "100%", height: "100%",marginBottom:200}}>
           <View
             style={{
-              width: "100%",
+              width: "90%",
               flexDirection: "row",
               flexWrap: "wrap",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "flex-start",
             }}
           >
             {gifts &&
@@ -332,7 +332,10 @@ export default function GiftCatalogue({ navigation }) {
                   ></SchemeComponent>
                 );
               })}
-                {giftCatalogueIsLoading &&
+                
+          </View>
+        </ScrollView>
+        {giftCatalogueIsLoading &&
               <FastImage
                    style={{ width: 100, height: 100, alignSelf: 'center',justifyContent:'center', marginTop: '50%' }}
                    source={{
@@ -342,9 +345,6 @@ export default function GiftCatalogue({ navigation }) {
                    resizeMode={FastImage.resizeMode.contain}
                />
                }
-          </View>
-        </ScrollView>
-      
       </View>
     </View>
   );

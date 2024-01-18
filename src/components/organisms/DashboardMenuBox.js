@@ -76,6 +76,8 @@ import { BaseUrl } from '../../utils/BaseUrl';
 const DashboardMenuBox=(props)=>{
     const data = props.data
     const navigation = props.navigation
+    const privacyPolicy = props.privacyPolicy
+    console.log("privacyPolicy",privacyPolicy)
     const width = Dimensions.get('window').width
     const handleMenuItemPress=(data)=>{
         if(data.substring(0,4).toLowerCase()==="scan" )
@@ -123,8 +125,12 @@ const DashboardMenuBox=(props)=>{
         else if(data.toLowerCase() === "customer support" || data.toLowerCase() === "help and support"){
             navigation.navigate('HelpAndSupport')
         }
-        else if(data.toLowerCase() === "scheme" ){
+        else if(data.toLowerCase() === "scheme info" ){
             navigation.navigate('Scheme')
+        }
+        else if(data.toLowerCase() === "privacy policy" ){
+            navigation.navigate('PdfComponent', { pdf:  privacyPolicy})
+
         }
         else if(data.toLowerCase() === "faqs" ){
             navigation.navigate('FAQ')
